@@ -9,13 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: flipperdevices/flipper-builder:latest
 
     steps:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git build-essential cmake python3 python3-pip
+        sudo apt-get install -y arm-none-eabi-gcc arm-none-eabi-newlib
+        pip3 install protobuf==3.20.0
 
     - name: Clone Flipper Firmware
       run: |
