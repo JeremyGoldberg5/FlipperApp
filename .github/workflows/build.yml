@@ -31,7 +31,7 @@ jobs:
         ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
         path: /tmp/flipperzero-firmware/build/f7_build/fap_cpp_ide.fap
