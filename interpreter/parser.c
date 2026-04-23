@@ -69,12 +69,16 @@ static ASTNode* parse_primary(Parser* parser) {
             node->data.func_call.arg_count = 0;
 
             if (parser->current.type != TOKEN_RPAREN) {
-                ASTNode* args = malloc(sizeof(ASTNode) * 16);
-                memset(args, 0, sizeof(ASTNode) * 16);
+                ASTNode* args = malloc(sizeof(ASTNode) * 8);
+                memset(args, 0, sizeof(ASTNode) * 8);
                 do {
                     if (parser->current.type == TOKEN_COMMA) parser_advance(parser);
-                    args[node->data.func_call.arg_count++] = *parse_expression(parser);
-                } while (parser->current.type == TOKEN_COMMA && node->data.func_call.arg_count < 16);
+                    if (node->data.func_call.arg_count < 8) {
+                        ASTNode* expr = parse_expression(parser);
+                        args[node->data.func_call.arg_count++] = *expr;
+                        free(expr);
+                    }
+                } while (parser->current.type == TOKEN_COMMA && node->data.func_call.arg_count < 8);
                 node->data.func_call.args = args;
             }
 

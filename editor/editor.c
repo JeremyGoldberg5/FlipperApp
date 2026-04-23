@@ -172,5 +172,3 @@ char* editor_get_text(TextEditor* editor) {
     result[pos] = '\0';
     return result;
 }
-
-#define MAX_CODE_SIZE 8192
