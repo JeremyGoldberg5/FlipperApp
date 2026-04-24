@@ -35,11 +35,10 @@ jobs:
         cd flipperzero-firmware
         # Create app directory matching the appid
         mkdir -p applications/external/cpp_ide
-        # Copy app files to subdirectory
+        # Copy app files to subdirectory (exclude manifest.c which is for internal apps)
         cp $GITHUB_WORKSPACE/application.fam applications/external/cpp_ide/
         cp $GITHUB_WORKSPACE/application.c applications/external/cpp_ide/
         cp $GITHUB_WORKSPACE/application.h applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/manifest.c applications/external/cpp_ide/
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
@@ -61,31 +60,17 @@ jobs:
         ./fbt faps 2>&1 | tee build.log
         echo ""
         echo "=== Build completed. Checking for FAP file ==="
-        ls -la build/f7_build/*.fap 2>/dev/null || echo "No FAP files found"
+        echo "=== Looking in build/f7-firmware-D/.extapps/ ==="
+        ls -la build/f7-firmware-D/.extapps/*.fap 2>/dev/null | grep cpp_ide || echo "cpp_ide.fap not found in extapps"
         echo ""
-        echo "=== All files in build/f7_build ==="
-        ls -la build/f7_build/ | head -30
-        echo ""
-        echo "=== Searching for any compiled apps ==="
-        find build/f7_build -type f | head -20
-
-    - name: Check build log for cpp_ide
-      run: |
-        cd /tmp/flipperzero-firmware
-        echo "=== Searching for cpp_ide in build output ==="
-        grep -i "cpp_ide\|c++ ide" build.log || echo "cpp_ide not mentioned in build"
-        echo ""
-        echo "=== Checking manifest location ==="
-        ls -la applications/external/cpp_ide/application.fam
-        echo ""
-        echo "=== Checking all FAP output files ==="
-        ls -la build/f7_build/fap_*.fap 2>/dev/null | wc -l
+        echo "=== All FAP files in build directory ==="
+        find build -name "*.fap" -o -name "*cpp_ide*" | head -20
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/flipperzero-firmware/build/f7_build/fap_cpp_ide.fap
+        path: /tmp/flipperzero-firmware/build/f7-firmware-D/.extapps/cpp_ide.fap
         if-no-files-found: warn
 
     - name: Create Release
