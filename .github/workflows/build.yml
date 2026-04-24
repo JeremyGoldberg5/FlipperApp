@@ -44,14 +44,30 @@ jobs:
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
         ls -la applications/external/cpp_ide/
+        echo ""
+        echo "=== Content of application.fam ==="
+        cat applications/external/cpp_ide/application.fam
+        echo ""
+        echo "=== Checking example external app for comparison ==="
+        if [ -f applications/external/example_app/application.fam ]; then
+          cat applications/external/example_app/application.fam
+        else
+          echo "No example app found"
+        fi
 
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
         ./fbt faps 2>&1 | tee build.log
+        echo ""
         echo "=== Build completed. Checking for FAP file ==="
         ls -la build/f7_build/*.fap 2>/dev/null || echo "No FAP files found"
-        find build/f7_build -name "*cpp_ide*" -o -name "*.fap" | head -20
+        echo ""
+        echo "=== All files in build/f7_build ==="
+        ls -la build/f7_build/ | head -30
+        echo ""
+        echo "=== Searching for any compiled apps ==="
+        find build/f7_build -type f | head -20
 
     - name: Check build log for cpp_ide
       run: |
