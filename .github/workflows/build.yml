@@ -33,6 +33,9 @@ jobs:
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
+        # Ensure applications/external is a directory
+        rm -f applications/external/application.fam
+        mkdir -p applications/external
         # Copy app files directly to applications/external
         cp $GITHUB_WORKSPACE/application.fam applications/external/
         cp $GITHUB_WORKSPACE/application.c applications/external/
