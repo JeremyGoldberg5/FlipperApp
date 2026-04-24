@@ -49,7 +49,11 @@ jobs:
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-        ./fbt fap_cpp_ide
+        echo "=== Available manifests ==="
+        find applications -name "application.fam" -type f
+        echo "=== Trying to build ==="
+        ./fbt -h | grep -i fap || true
+        ./fbt fap_cpp_ide 2>&1 | head -100
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
