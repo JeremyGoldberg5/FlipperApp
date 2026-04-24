@@ -42,18 +42,12 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        # Copy manifest to parent directory for build system discovery
-        cp applications/external/cpp_ide/application.fam applications/external/
-        ls -la applications/external/
+        ls -la applications/external/cpp_ide/
 
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-        echo "=== Available manifests ==="
-        find applications -name "application.fam" -type f
-        echo "=== Trying to build ==="
-        ./fbt -h | grep -i fap || true
-        ./fbt fap_cpp_ide 2>&1 | head -100
+        ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
