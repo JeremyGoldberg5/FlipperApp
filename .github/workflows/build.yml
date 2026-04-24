@@ -47,6 +47,8 @@ jobs:
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
+        # Create minimal valid app folder manifest with just a comment
+        printf '# External apps placeholder\n' > applications/external/application.fam
         ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact
