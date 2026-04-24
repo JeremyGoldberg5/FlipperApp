@@ -42,15 +42,8 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        # Also create a manifest in the parent to satisfy the build system
-        cat > applications/external/application.fam << 'EOFAM'
-App(
-    appid="cpp_ide",
-    name="C++ IDE",
-    apptype="external",
-    entry_point="cpp_ide_app_main",
-)
-EOFAM
+        # Copy manifest to parent directory for build system discovery
+        cp applications/external/cpp_ide/application.fam applications/external/
         ls -la applications/external/
 
     - name: Build FAP
