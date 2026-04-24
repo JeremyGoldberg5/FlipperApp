@@ -33,22 +33,19 @@ jobs:
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
-        # Create the app directory and copy files
-        mkdir -p applications/external/cpp_ide
-        cp $GITHUB_WORKSPACE/application.fam applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/application.c applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/application.h applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/manifest.c applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
-        cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
-        cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        ls -la applications/external/cpp_ide/
+        # Copy app files directly to applications/external
+        cp $GITHUB_WORKSPACE/application.fam applications/external/
+        cp $GITHUB_WORKSPACE/application.c applications/external/
+        cp $GITHUB_WORKSPACE/application.h applications/external/
+        cp $GITHUB_WORKSPACE/manifest.c applications/external/
+        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/
+        cp -r $GITHUB_WORKSPACE/editor applications/external/
+        cp -r $GITHUB_WORKSPACE/interpreter applications/external/
+        ls -la applications/external/
 
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-        # Create minimal valid app folder manifest with just a comment
-        printf '# External apps placeholder\n' > applications/external/application.fam
         ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact
