@@ -42,8 +42,6 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        # Create valid Python placeholder - the parser needs valid syntax
-        echo "pass" > applications/external/application.fam
         ls -la applications/external/cpp_ide/
 
     - name: Build FAP
