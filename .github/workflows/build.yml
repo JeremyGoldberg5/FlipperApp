@@ -42,8 +42,8 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        # Create a minimal folder descriptor at applications/external level
-        echo "# External apps folder" > applications/external/application.fam
+        # Create valid Python placeholder for external folder
+        echo "" > applications/external/application.fam
         ls -la applications/external/cpp_ide/
 
     - name: Build FAP
