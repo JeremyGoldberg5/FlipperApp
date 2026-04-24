@@ -48,12 +48,10 @@ jobs:
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-        # Create a valid Python module placeholder at applications/external level
-        printf '# External apps folder descriptor\n' > applications/external/application.fam
-        echo "=== Checking app files ==="
-        find applications/external -type f -name "*.fam" | head -10
-        echo "=== Building ==="
-        ./fbt fap_cpp_ide
+        # Try creating empty file - maybe parser just needs it to exist
+        touch applications/external/application.fam
+        # Or try using the fabs target format instead
+        ./fbt faps
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
