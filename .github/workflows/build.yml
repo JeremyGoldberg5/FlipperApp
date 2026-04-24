@@ -33,12 +33,16 @@ jobs:
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
-        mkdir -p applications/external
-        # Copy app files directly to applications/external
-        cp -r $GITHUB_WORKSPACE/* applications/external/ 2>/dev/null || true
-        # Remove unwanted files
-        rm -rf applications/external/.git applications/external/.github applications/external/.gitignore
-        ls -la applications/external/application.fam
+        mkdir -p applications/external/cpp_ide
+        # Copy only source and manifest files
+        cp $GITHUB_WORKSPACE/application.fam applications/external/cpp_ide/
+        cp $GITHUB_WORKSPACE/application.c applications/external/cpp_ide/
+        cp $GITHUB_WORKSPACE/application.h applications/external/cpp_ide/
+        cp $GITHUB_WORKSPACE/manifest.c applications/external/cpp_ide/
+        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
+        cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
+        cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
+        ls -la applications/external/cpp_ide/
 
     - name: Build FAP
       run: |
