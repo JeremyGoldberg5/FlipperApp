@@ -42,7 +42,9 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        ls -la applications/external/cpp_ide/
+        # Create manifest for applications/external folder itself
+        printf 'App(\n    appid="cpp_ide",\n    name="C++ IDE",\n    apptype="external",\n    entry_point="cpp_ide_app_main",\n)\n' > applications/external/application.fam
+        ls -la applications/external/
 
     - name: Build FAP
       run: |
