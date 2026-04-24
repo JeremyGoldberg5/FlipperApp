@@ -33,8 +33,8 @@ jobs:
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
+        # Create the app directory and copy files
         mkdir -p applications/external/cpp_ide
-        # Copy only source and manifest files
         cp $GITHUB_WORKSPACE/application.fam applications/external/cpp_ide/
         cp $GITHUB_WORKSPACE/application.c applications/external/cpp_ide/
         cp $GITHUB_WORKSPACE/application.h applications/external/cpp_ide/
@@ -42,7 +42,16 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        ls -la applications/external/cpp_ide/
+        # Also create a manifest in the parent to satisfy the build system
+        cat > applications/external/application.fam << 'EOFAM'
+App(
+    appid="cpp_ide",
+    name="C++ IDE",
+    apptype="external",
+    entry_point="cpp_ide_app_main",
+)
+EOFAM
+        ls -la applications/external/
 
     - name: Build FAP
       run: |
