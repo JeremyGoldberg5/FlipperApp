@@ -42,7 +42,8 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
-        # The manifest in cpp_ide subfolder should be discovered automatically
+        # Create a minimal folder descriptor at applications/external level
+        echo "# External apps folder" > applications/external/application.fam
         ls -la applications/external/cpp_ide/
 
     - name: Build FAP
