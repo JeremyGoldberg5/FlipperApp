@@ -34,12 +34,16 @@ jobs:
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
         mkdir -p applications/external/cpp_ide
-        cp -r $GITHUB_WORKSPACE/* applications/external/cpp_ide/
-        cp applications/external/cpp_ide/application.fam applications/external/
+        # Copy all files except hidden ones and git directory
+        cp -r $GITHUB_WORKSPACE/* applications/external/cpp_ide/ 2>/dev/null || true
+        ls -la applications/external/cpp_ide/
 
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
+        echo "Looking for application.fam files:"
+        find applications/external -name "application.fam" -exec echo {} \;
+        ./fbt list_apps | grep cpp_ide || echo "cpp_ide not found in app list"
         ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact
