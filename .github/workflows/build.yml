@@ -35,6 +35,7 @@ jobs:
         cd flipperzero-firmware
         mkdir -p applications/external/cpp_ide
         cp -r $GITHUB_WORKSPACE/* applications/external/cpp_ide/
+        cp applications/external/cpp_ide/application.fam applications/external/
 
     - name: Build FAP
       run: |
