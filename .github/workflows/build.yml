@@ -47,9 +47,6 @@ jobs:
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-        echo "Looking for application.fam files:"
-        find applications/external -name "application.fam" -exec echo {} \;
-        ./fbt list_apps | grep cpp_ide || echo "cpp_ide not found in app list"
         ./fbt fap_cpp_ide
 
     - name: Upload FAP artifact

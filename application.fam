@@ -1,5 +1,6 @@
 App(
     appid="cpp_ide",
     name="C++ IDE",
+    apptype="external",
     entry_point="cpp_ide_app_main",
 )
