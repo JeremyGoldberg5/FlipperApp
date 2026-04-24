@@ -42,17 +42,27 @@ jobs:
         cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
+
+        # Create CMakeLists.txt for external apps directory to enable app discovery
+        cat > applications/external/CMakeLists.txt << 'CMAKEOF'
+# External apps CMakeLists.txt
+# Automatically includes all subdirectories that contain an application.fam
+file(GLOB app_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*/")
+foreach(app_dir ${app_dirs})
+  if(EXISTS "${app_dir}/application.fam")
+    get_filename_component(app_name ${app_dir} NAME)
+    add_subdirectory(${app_name})
+  endif()
+endforeach()
+CMAKEOF
+
         ls -la applications/external/cpp_ide/
         echo ""
         echo "=== Content of application.fam ==="
         cat applications/external/cpp_ide/application.fam
         echo ""
-        echo "=== Checking example external app for comparison ==="
-        if [ -f applications/external/example_app/application.fam ]; then
-          cat applications/external/example_app/application.fam
-        else
-          echo "No example app found"
-        fi
+        echo "=== CMakeLists.txt in applications/external ==="
+        cat applications/external/CMakeLists.txt
 
     - name: Build FAP
       run: |
