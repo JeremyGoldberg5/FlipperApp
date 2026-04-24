@@ -49,9 +49,7 @@ jobs:
       run: |
         cd /tmp/flipperzero-firmware
         # Create a valid Python module placeholder at applications/external level
-        cat > applications/external/application.fam << 'PYEOF'
-# External apps folder descriptor
-PYEOF
+        printf '# External apps folder descriptor\n' > applications/external/application.fam
         echo "=== Checking app files ==="
         find applications/external -type f -name "*.fam" | head -10
         echo "=== Building ==="
