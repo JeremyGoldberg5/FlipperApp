@@ -44,7 +44,15 @@ jobs:
         cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
 
         # Create CMakeLists.txt for external apps directory to enable app discovery
-        printf 'file(GLOB app_dirs "$${CMAKE_CURRENT_SOURCE_DIR}/*")\nforeach(app_dir $${app_dirs})\n  if(EXISTS "$${app_dir}/application.fam")\n    get_filename_component(app_name $${app_dir} NAME)\n    add_subdirectory($${app_name})\n  endif()\nendforeach()\n' > applications/external/CMakeLists.txt
+        cat > applications/external/CMakeLists.txt << 'CMAKE_EOF'
+file(GLOB app_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*")
+foreach(app_dir ${app_dirs})
+  if(EXISTS "${app_dir}/application.fam")
+    get_filename_component(app_name ${app_dir} NAME)
+    add_subdirectory(${app_name})
+  endif()
+endforeach()
+CMAKE_EOF
 
         ls -la applications/external/cpp_ide/
         echo ""
