@@ -57,6 +57,17 @@ jobs:
     - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
+        echo "=== Checking applications/external structure ==="
+        ls -la applications/external/
+        echo ""
+        echo "=== Checking if CMakeLists.txt exists ==="
+        [ -f applications/external/CMakeLists.txt ] && echo "EXISTS" || echo "MISSING"
+        cat applications/external/CMakeLists.txt
+        echo ""
+        echo "=== Checking cpp_ide files ==="
+        ls -la applications/external/cpp_ide/
+        echo ""
+        echo "=== Starting fbt build ==="
         ./fbt faps 2>&1 | tee build.log
         echo ""
         echo "=== Build completed. Checking for FAP file ==="
@@ -65,6 +76,9 @@ jobs:
         echo ""
         echo "=== All FAP files in build directory ==="
         find build -name "*.fap" -o -name "*cpp_ide*" | head -20
+        echo ""
+        echo "=== Search fbt output for app loading ==="
+        grep -i "loading\|discovering\|cpp_ide" build.log | head -30
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
