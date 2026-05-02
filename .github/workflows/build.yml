@@ -64,8 +64,11 @@ jobs:
         fi
         ls -la applications/examples/ | grep -E "CMakeLists|cpp_ide|test_app"
 
-        echo "Step 5: Run fbt with full output (examples apps should be discovered and built)"
-        ./fbt 2>&1 | tee /tmp/fbt_build.log
+        echo "Step 5: Try building FAPs directly with fbt faps"
+        ./fbt faps 2>&1 | tee /tmp/fbt_faps.log | grep -i "test_app\|cpp_ide\|FAP\|error" || echo "No output"
+
+        echo "Step 6: If fbt faps didn't work, try full firmware build"
+        ./fbt 2>&1 | tee /tmp/fbt_build.log | tail -50
 
         echo ""
         echo "Step 5b: Save full log for debugging"
