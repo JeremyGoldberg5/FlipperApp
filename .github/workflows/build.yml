@@ -51,6 +51,9 @@ jobs:
         echo "Step 4c: Count all application.fam files in examples/"
         find applications/examples -name "application.fam" -exec echo {} \;
 
+        echo "Step 4d: Try to build just cpp_ide FAP explicitly"
+        ./fbt faps COMPACT=1 DEBUG=0 2>&1 | grep -i "cpp_ide\|test_app\|FAILED\|ERROR" || echo "No matches found"
+
         echo "Step 5: Run fbt with full output (not fbt faps - examples apps are built with main firmware)"
         ./fbt 2>&1 | tee /tmp/fbt_build.log
 
