@@ -32,62 +32,65 @@ jobs:
       run: |
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
+        cd flipperzero-firmware
 
-    - name: Build cpp_ide FAP as external application
-      run: |
-        # Copy app source to home directory (where external FAPs are built from)
-        mkdir -p /tmp/cpp_ide_build
-        cd /tmp/cpp_ide_build
+        # Copy cpp_ide app into applications/examples/ (not external/)
+        # This is the ONLY directory guaranteed to be scanned by fbt's app discovery
+        echo "Copying cpp_ide to applications/examples/"
+        cp -r $GITHUB_WORKSPACE applications/examples/cpp_ide
 
-        # Copy source files
-        cp -r $GITHUB_WORKSPACE/* .
-
-        # Remove workflow files and git artifacts
-        rm -rf .github .git
-
-        # Verify application.fam exists
-        if [ ! -f "application.fam" ]; then
-          echo "FATAL: application.fam not found in source"
-          exit 1
-        fi
-
-        # Use fbt from the cloned firmware to build this FAP
-        # fbt can build a FAP from any directory if it has application.fam
-        /tmp/flipperzero-firmware/fbt -C . fap 2>&1 | tee build.log
-
-        # The FAP file should be generated at build/<target>/.extapps/<appid>.fap
+        # Verify all required files are present
         echo ""
-        echo "=== Checking for cpp_ide.fap after build ==="
+        echo "=== cpp_ide contents in applications/examples/ ==="
+        ls -la applications/examples/cpp_ide/
+        echo ""
 
-        # Find the generated FAP file
-        FAP_FILE=$(find . -name "cpp_ide.fap" -type f 2>/dev/null | head -1)
+        # Show the application.fam that will be discovered
+        echo "=== application.fam content ==="
+        cat applications/examples/cpp_ide/application.fam
 
-        if [ -z "$FAP_FILE" ]; then
-          echo "FATAL: cpp_ide.fap not found after build"
+    - name: Build FAP from firmware
+      run: |
+        cd /tmp/flipperzero-firmware
+
+        # Run fbt faps to build all FAPs, including cpp_ide
+        # fbt will automatically discover cpp_ide in applications/examples/
+        ./fbt faps 2>&1 | tee build.log
+
+        echo ""
+        echo "=== All FAP files generated ==="
+        find build/f7-firmware-D/.extapps -name "*.fap" -type f | sort
+
+        echo ""
+        echo "=== Looking for cpp_ide.fap ==="
+        FAP_PATH="build/f7-firmware-D/.extapps/cpp_ide.fap"
+
+        if [ ! -f "$FAP_PATH" ]; then
+          echo "FATAL: cpp_ide.fap was not built"
+          echo "Expected location: $FAP_PATH"
           echo ""
-          echo "=== Checking directory structure ==="
-          find . -type d -name ".extapps" 2>/dev/null
-          find . -type f -name "*.fap" 2>/dev/null | head -20
+          echo "=== Last 50 lines of build log ==="
+          tail -50 build.log
           exit 1
         fi
 
-        echo "SUCCESS: Found cpp_ide.fap at $FAP_FILE"
-        ls -lh "$FAP_FILE"
+        echo "SUCCESS: cpp_ide.fap found!"
+        ls -lh "$FAP_PATH"
 
-        # Copy to standard location for upload
-        mkdir -p /tmp/cpp_ide_fap
-        cp "$FAP_FILE" /tmp/cpp_ide_fap/cpp_ide.fap
-        ls -lh /tmp/cpp_ide_fap/cpp_ide.fap
+        # Copy to output directory for upload
+        mkdir -p /tmp/fap_output
+        cp "$FAP_PATH" /tmp/fap_output/cpp_ide.fap
+        ls -lh /tmp/fap_output/cpp_ide.fap
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/cpp_ide_fap/cpp_ide.fap
+        path: /tmp/fap_output/cpp_ide.fap
         if-no-files-found: error
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: /tmp/cpp_ide_fap/cpp_ide.fap
+        files: /tmp/fap_output/cpp_ide.fap
