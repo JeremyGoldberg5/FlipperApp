@@ -1,6 +1,6 @@
 App(
     appid="test_app",
-    name="Test App",
+    name="C++ IDE",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="test_app_main",
     requires=["gui"],
