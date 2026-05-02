@@ -33,7 +33,7 @@ jobs:
         echo "Step 2: Copy test app files"
         cp $GITHUB_WORKSPACE/test_app.fam applications/examples/test_app/application.fam
         cp $GITHUB_WORKSPACE/test_app.c applications/examples/test_app/test_app.c
-        # Don't copy editor/interpreter for minimal test - if test_app builds, infrastructure works
+        cp $GITHUB_WORKSPACE/test_app_cmake.txt applications/examples/test_app/CMakeLists.txt
 
         echo "Step 3: Verify files copied"
         ls -la applications/examples/test_app/
@@ -41,8 +41,8 @@ jobs:
         echo "Step 4: Show test_app application.fam"
         cat applications/examples/test_app/application.fam
 
-        echo "Step 5: Run fbt faps with full output"
-        ./fbt faps 2>&1 | tee /tmp/fbt_build.log
+        echo "Step 5: Run fbt with full output (not fbt faps - examples apps are built with main firmware)"
+        ./fbt 2>&1 | tee /tmp/fbt_build.log
 
         echo ""
         echo "Step 5b: Save full log for debugging"

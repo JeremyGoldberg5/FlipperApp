@@ -1,0 +1,5 @@
+add_library(test_app OBJECT
+    test_app.c
+)
+
+target_include_directories(test_app PRIVATE .)
