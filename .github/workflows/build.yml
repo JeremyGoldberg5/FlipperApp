@@ -30,11 +30,10 @@ jobs:
         echo "Step 1: Create app directory"
         mkdir -p applications/examples/cpp_ide
 
-        echo "Step 2: Copy source files (WITH CMakeLists.txt - THIS WAS THE BUG!)"
+        echo "Step 2: Copy source files (WITHOUT CMakeLists.txt - apps in examples use Python discovery)"
         cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
         cp $GITHUB_WORKSPACE/application.c applications/examples/cpp_ide/
         cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
-        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/examples/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
         cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
 
