@@ -39,10 +39,13 @@ jobs:
         cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
 
         echo "Step 3: Verify files"
-        ls applications/examples/cpp_ide/
+        ls -la applications/examples/cpp_ide/
 
         echo "Step 4: Show application.fam"
         cat applications/examples/cpp_ide/application.fam
+
+        echo "Step 4b: Check if apps are discovered before build"
+        ./fbt --dry-run faps 2>&1 | grep -E "cpp_ide|external|example" | head -20 || true
 
         echo "Step 5: Run fbt faps"
         ./fbt faps 2>&1 | tail -50
