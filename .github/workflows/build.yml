@@ -30,12 +30,12 @@ jobs:
         echo "Step 1: Create app directory"
         mkdir -p applications/examples/cpp_ide
 
-        echo "Step 2: Copy source files (WITHOUT CMakeLists.txt - apps in examples use Python discovery)"
+        echo "Step 2: Copy source files (apps MUST have application.fam, not appid.fam)"
         mkdir -p applications/examples/test_app
-        cp $GITHUB_WORKSPACE/test_app.fam applications/examples/test_app/
+        cp $GITHUB_WORKSPACE/test_app.fam applications/examples/test_app/application.fam
         cp $GITHUB_WORKSPACE/test_app.c applications/examples/test_app/
 
-        cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
+        cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/application.fam
         cp $GITHUB_WORKSPACE/application.c applications/examples/cpp_ide/
         cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
