@@ -42,12 +42,45 @@ jobs:
         # Verify all required files are present
         echo ""
         echo "=== cpp_ide contents in applications/examples/ ==="
-        ls -la applications/examples/cpp_ide/
+        ls -la applications/examples/cpp_ide/ | head -15
         echo ""
 
         # Show the application.fam that will be discovered
         echo "=== application.fam content ==="
         cat applications/examples/cpp_ide/application.fam
+
+        # CRITICAL: Add cpp_ide to applications/examples/CMakeLists.txt
+        # The firmware's CMakeLists needs to include cpp_ide for CMake to build it
+        echo ""
+        echo "=== Checking applications/examples/CMakeLists.txt ==="
+
+        if [ -f "applications/examples/CMakeLists.txt" ]; then
+          echo "CMakeLists.txt exists, checking for cpp_ide..."
+          if ! grep -q "cpp_ide" applications/examples/CMakeLists.txt; then
+            echo "Adding cpp_ide to applications/examples/CMakeLists.txt"
+            # Add cpp_ide to the end of the file
+            echo "add_subdirectory(cpp_ide)" >> applications/examples/CMakeLists.txt
+          else
+            echo "cpp_ide already in CMakeLists.txt"
+          fi
+        else
+          echo "No CMakeLists.txt in applications/examples/, creating one..."
+          cat > applications/examples/CMakeLists.txt << 'EOF'
+# Automatically discover and build all example apps
+file(GLOB app_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*")
+foreach(app_dir ${app_dirs})
+  if(IS_DIRECTORY "${app_dir}" AND EXISTS "${app_dir}/application.fam")
+    get_filename_component(app_name "${app_dir}" NAME)
+    if(NOT "${app_name}" STREQUAL "CMakeLists.txt")
+      add_subdirectory("${app_name}")
+    endif()
+  endif()
+endforeach()
+EOF
+        fi
+
+        echo "=== Final CMakeLists.txt content (last 20 lines) ==="
+        tail -20 applications/examples/CMakeLists.txt
 
     - name: Build FAP from firmware
       run: |
