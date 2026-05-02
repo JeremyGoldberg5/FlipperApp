@@ -30,22 +30,18 @@ jobs:
         echo "Step 1: Create app directory"
         mkdir -p applications/examples/cpp_ide
 
-        echo "Step 2: Copy source files"
+        echo "Step 2: Copy source files (note: NO CMakeLists.txt - not needed for apps in examples/)"
         cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
         cp $GITHUB_WORKSPACE/application.c applications/examples/cpp_ide/
         cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
-        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/examples/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
         cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
 
-        echo "Step 3: Verify files"
+        echo "Step 3: Verify files copied"
         ls -la applications/examples/cpp_ide/
 
         echo "Step 4: Show application.fam"
         cat applications/examples/cpp_ide/application.fam
-
-        echo "Step 4b: Check if apps are discovered before build"
-        ./fbt --dry-run faps 2>&1 | grep -E "cpp_ide|external|example" | head -20 || true
 
         echo "Step 5: Run fbt faps"
         ./fbt faps 2>&1 | tail -50

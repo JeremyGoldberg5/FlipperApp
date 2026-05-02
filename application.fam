@@ -1,7 +1,9 @@
 App(
     appid="cpp_ide",
     name="C++ IDE",
-    apptype="example",
+    apptype=FlipperAppType.EXTERNAL,
     entry_point="cpp_ide_app_main",
     requires=["gui"],
+    stack_size=16 * 1024,
+    fap_category="Tools",
 )
