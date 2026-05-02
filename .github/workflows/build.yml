@@ -3,55 +3,57 @@ name: Build C++ IDE FAP
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install dependencies
+    - name: Setup
       run: |
-        sudo apt-get update
-        sudo apt-get install -y git build-essential cmake python3 python3-pip
-        pip3 install protobuf==3.20.0
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq git build-essential cmake python3 python3-pip
+        pip3 install -q protobuf==3.20.0
 
-    - name: Install ARM Toolchain
-      run: |
         cd /tmp
         wget -q https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         tar xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         echo "/tmp/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
 
-    - name: Clone and Build
+    - name: Build
       run: |
         cd /tmp
-        git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
+        git clone --recursive -q https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
 
-        # Copy app files directly into examples directory
-        for f in application.fam application.c application.h CMakeLists.txt editor interpreter; do
-          cp -r $GITHUB_WORKSPACE/$f applications/examples/cpp_ide/ 2>/dev/null || true
-        done
+        echo "Step 1: Create app directory"
+        mkdir -p applications/examples/cpp_ide
 
-        # List what we have
-        echo "=== Content of applications/examples/cpp_ide ==="
-        ls -la applications/examples/cpp_ide/ 2>/dev/null || echo "Directory creation may have issues"
+        echo "Step 2: Copy source files"
+        cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
+        cp $GITHUB_WORKSPACE/application.c applications/examples/cpp_ide/
+        cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
+        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/examples/cpp_ide/
+        cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
+        cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
 
-        # Try to build
-        ./fbt faps 2>&1 | tail -100
+        echo "Step 3: Verify files"
+        ls applications/examples/cpp_ide/
 
-        # Check if it was built
+        echo "Step 4: Show application.fam"
+        cat applications/examples/cpp_ide/application.fam
+
+        echo "Step 5: Run fbt faps"
+        ./fbt faps 2>&1 | tail -50
+
+        echo "Step 6: Check for cpp_ide.fap"
         if [ -f "build/f7-firmware-D/.extapps/cpp_ide.fap" ]; then
-          echo "SUCCESS: cpp_ide.fap found!"
+          echo "SUCCESS!"
           cp build/f7-firmware-D/.extapps/cpp_ide.fap /tmp/cpp_ide.fap
-          ls -lh /tmp/cpp_ide.fap
         else
-          echo "FAILED: cpp_ide.fap not found"
-          find build -name "*.fap" 2>/dev/null | wc -l
+          echo "FAILED - cpp_ide.fap not found"
+          find build -name "*.fap" 2>/dev/null | head -5
           exit 1
         fi
 
