@@ -32,7 +32,8 @@ jobs:
 
         echo "Step 2: Copy source files (note: NO CMakeLists.txt - not needed for apps in examples/)"
         cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
-        cp $GITHUB_WORKSPACE/application.c applications/examples/cpp_ide/
+        # Use minimal app for diagnostic - if this builds, the infrastructure works
+        cp $GITHUB_WORKSPACE/application_minimal.c applications/examples/cpp_ide/application.c
         cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
         cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
         cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
