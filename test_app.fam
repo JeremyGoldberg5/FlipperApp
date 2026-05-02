@@ -1,0 +1,9 @@
+App(
+    appid="test_app",
+    name="Test App",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="test_app_main",
+    requires=["gui"],
+    stack_size=1 * 1024,
+    fap_category="Tools",
+)
