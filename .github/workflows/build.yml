@@ -32,67 +32,62 @@ jobs:
       run: |
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
-        cd flipperzero-firmware
 
-        # Create external apps directory
-        mkdir -p applications/external
-
-        # Copy app files directly to applications/external (not in a subdirectory)
-        cp $GITHUB_WORKSPACE/application.fam applications/external/
-        cp $GITHUB_WORKSPACE/application.c applications/external/
-        cp $GITHUB_WORKSPACE/application.h applications/external/
-        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/
-        cp -r $GITHUB_WORKSPACE/editor applications/external/
-        cp -r $GITHUB_WORKSPACE/interpreter applications/external/
-
-        # Add external apps directory to main CMakeLists if not already present
-        CMAKE_FILE="CMakeLists.txt"
-        if [ -f "$CMAKE_FILE" ]; then
-          if ! grep -q "add_subdirectory(applications/external)" "$CMAKE_FILE"; then
-            sed -i '/add_subdirectory(applications\/main)/a add_subdirectory(applications/external)' "$CMAKE_FILE"
-            echo "Added applications/external to CMakeLists.txt"
-          else
-            echo "applications/external already in CMakeLists.txt"
-          fi
-        fi
-
-        echo "=== applications/external structure ==="
-        ls -la applications/external/
-        echo ""
-        echo "=== Content of applications/external/application.fam ==="
-        cat applications/external/application.fam
-
-    - name: Build FAP
+    - name: Build cpp_ide FAP as external application
       run: |
-        cd /tmp/flipperzero-firmware
-        ./fbt faps 2>&1 | tee build.log
+        # Copy app source to home directory (where external FAPs are built from)
+        mkdir -p /tmp/cpp_ide_build
+        cd /tmp/cpp_ide_build
 
-        # List all built FAPs to verify what was created
-        echo ""
-        echo "=== All built FAP files ==="
-        find build/f7-firmware-D/.extapps -name "*.fap" -type f | sort
+        # Copy source files
+        cp -r $GITHUB_WORKSPACE/* .
 
-        # Verify cpp_ide.fap exists - FAIL if missing
-        echo ""
-        echo "=== Checking for cpp_ide.fap ==="
-        FAP_FILE="build/f7-firmware-D/.extapps/cpp_ide.fap"
-        if [ ! -f "$FAP_FILE" ]; then
-          echo "FATAL: cpp_ide.fap not found at $FAP_FILE"
-          echo "Build FAILED - external app was not compiled"
+        # Remove workflow files and git artifacts
+        rm -rf .github .git
+
+        # Verify application.fam exists
+        if [ ! -f "application.fam" ]; then
+          echo "FATAL: application.fam not found in source"
           exit 1
         fi
-        echo "SUCCESS: Found $FAP_FILE"
+
+        # Use fbt from the cloned firmware to build this FAP
+        # fbt can build a FAP from any directory if it has application.fam
+        /tmp/flipperzero-firmware/fbt -C . fap 2>&1 | tee build.log
+
+        # The FAP file should be generated at build/<target>/.extapps/<appid>.fap
+        echo ""
+        echo "=== Checking for cpp_ide.fap after build ==="
+
+        # Find the generated FAP file
+        FAP_FILE=$(find . -name "cpp_ide.fap" -type f 2>/dev/null | head -1)
+
+        if [ -z "$FAP_FILE" ]; then
+          echo "FATAL: cpp_ide.fap not found after build"
+          echo ""
+          echo "=== Checking directory structure ==="
+          find . -type d -name ".extapps" 2>/dev/null
+          find . -type f -name "*.fap" 2>/dev/null | head -20
+          exit 1
+        fi
+
+        echo "SUCCESS: Found cpp_ide.fap at $FAP_FILE"
         ls -lh "$FAP_FILE"
+
+        # Copy to standard location for upload
+        mkdir -p /tmp/cpp_ide_fap
+        cp "$FAP_FILE" /tmp/cpp_ide_fap/cpp_ide.fap
+        ls -lh /tmp/cpp_ide_fap/cpp_ide.fap
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/flipperzero-firmware/build/f7-firmware-D/.extapps/cpp_ide.fap
+        path: /tmp/cpp_ide_fap/cpp_ide.fap
         if-no-files-found: error
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: /tmp/flipperzero-firmware/build/f7_build/fap_cpp_ide.fap
+        files: /tmp/cpp_ide_fap/cpp_ide.fap
