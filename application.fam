@@ -5,6 +5,5 @@ App(
     entry_point="cpp_ide_app_main",
     requires=["gui"],
     provides=["cpp_ide"],
-    search_type="tools",
     category="Tools",
 )
