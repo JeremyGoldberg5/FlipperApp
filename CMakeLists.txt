@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.22)
-
-project(cpp_ide_app C)
-
 add_library(cpp_ide_app OBJECT
     application.c
     interpreter/value.c

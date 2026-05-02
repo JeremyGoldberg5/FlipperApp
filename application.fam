@@ -1,7 +1,8 @@
 App(
     appid="cpp_ide",
     name="C++ IDE",
-    apptype="external",
+    apptype="plugin",
     entry_point="cpp_ide_app_main",
     requires=["gui"],
+    stack_size=4096,
 )
