@@ -55,10 +55,16 @@ jobs:
         echo "Step 4c: Count all application.fam files in examples/"
         find applications/examples -name "application.fam" -exec echo {} \;
 
-        echo "Step 4d: Try to build just cpp_ide FAP explicitly"
-        ./fbt faps COMPACT=1 DEBUG=0 2>&1 | grep -i "cpp_ide\|test_app\|FAILED\|ERROR" || echo "No matches found"
+        echo "Step 4d-debug: Check if applications/examples has a CMakeLists.txt"
+        if [ -f "applications/examples/CMakeLists.txt" ]; then
+          echo "Found applications/examples/CMakeLists.txt"
+          grep -i "add_subdirectory\|cpp_ide\|test_app" applications/examples/CMakeLists.txt || echo "No cpp_ide or test_app references found"
+        else
+          echo "No CMakeLists.txt in applications/examples/"
+        fi
+        ls -la applications/examples/ | grep -E "CMakeLists|cpp_ide|test_app"
 
-        echo "Step 5: Run fbt with full output (not fbt faps - examples apps are built with main firmware)"
+        echo "Step 5: Run fbt with full output (examples apps should be discovered and built)"
         ./fbt 2>&1 | tee /tmp/fbt_build.log
 
         echo ""
