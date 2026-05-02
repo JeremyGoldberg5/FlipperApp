@@ -19,36 +19,45 @@ jobs:
         sudo apt-get install -y git build-essential cmake python3 python3-pip
         pip3 install protobuf==3.20.0
 
-    - name: Install ARM Embedded Toolchain
+    - name: Install ARM Toolchain
       run: |
         cd /tmp
-        wget https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
+        wget -q https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         tar xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         echo "/tmp/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
 
-    - name: Clone Flipper Firmware (SDK only)
+    - name: Clone and Build
       run: |
         cd /tmp
-        git clone --depth 1 https://github.com/flipperdevices/flipperzero-firmware.git fw_sdk
+        git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
+        cd flipperzero-firmware
 
-    - name: Build cpp_ide as External FAP
-      run: |
-        export FLIPPER_FW_PATH=/tmp/fw_sdk
-        cd $GITHUB_WORKSPACE
-        /tmp/fw_sdk/fbt -C . fap
-        mkdir -p /tmp/output
-        find build -name "cpp_ide.fap" -type f -exec cp {} /tmp/output/ \;
-        if [ ! -f /tmp/output/cpp_ide.fap ]; then
-          echo "ERROR: cpp_ide.fap not found"
-          echo "Build directory contents:"
-          find build -type f -name "*.fap" | head -10 || echo "No FAP files found"
+        # Copy app files directly into examples directory
+        for f in application.fam application.c application.h CMakeLists.txt editor interpreter; do
+          cp -r $GITHUB_WORKSPACE/$f applications/examples/cpp_ide/ 2>/dev/null || true
+        done
+
+        # List what we have
+        echo "=== Content of applications/examples/cpp_ide ==="
+        ls -la applications/examples/cpp_ide/ 2>/dev/null || echo "Directory creation may have issues"
+
+        # Try to build
+        ./fbt faps 2>&1 | tail -100
+
+        # Check if it was built
+        if [ -f "build/f7-firmware-D/.extapps/cpp_ide.fap" ]; then
+          echo "SUCCESS: cpp_ide.fap found!"
+          cp build/f7-firmware-D/.extapps/cpp_ide.fap /tmp/cpp_ide.fap
+          ls -lh /tmp/cpp_ide.fap
+        else
+          echo "FAILED: cpp_ide.fap not found"
+          find build -name "*.fap" 2>/dev/null | wc -l
           exit 1
         fi
-        ls -lh /tmp/output/cpp_ide.fap
 
-    - name: Upload Artifact
+    - name: Upload
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/output/cpp_ide.fap
+        path: /tmp/cpp_ide.fap
         if-no-files-found: error
