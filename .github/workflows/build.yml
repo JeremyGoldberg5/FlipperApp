@@ -27,20 +27,19 @@ jobs:
         git clone --recursive -q https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
 
-        echo "Step 1: Create app directory"
-        mkdir -p applications/examples/cpp_ide
+        echo "Step 1: Create test app directory (trying different appid)"
+        mkdir -p applications/examples/test_app
 
-        echo "Step 2: Copy source files - MINIMAL APP ONLY for diagnostic"
-        cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
-        # Diagnostic: use ONLY minimal app with no dependencies
-        cp $GITHUB_WORKSPACE/application_minimal.c applications/examples/cpp_ide/application.c
-        # Don't copy editor/interpreter for minimal test - if minimal builds, infrastructure works
+        echo "Step 2: Copy test app files"
+        cp $GITHUB_WORKSPACE/test_app.fam applications/examples/test_app/application.fam
+        cp $GITHUB_WORKSPACE/test_app.c applications/examples/test_app/test_app.c
+        # Don't copy editor/interpreter for minimal test - if test_app builds, infrastructure works
 
         echo "Step 3: Verify files copied"
-        ls -la applications/examples/cpp_ide/
+        ls -la applications/examples/test_app/
 
-        echo "Step 4: Show application.fam"
-        cat applications/examples/cpp_ide/application.fam
+        echo "Step 4: Show test_app application.fam"
+        cat applications/examples/test_app/application.fam
 
         echo "Step 5: Run fbt faps with full output"
         ./fbt faps 2>&1 | tee /tmp/fbt_build.log
@@ -49,12 +48,12 @@ jobs:
         echo "Step 5b: Save full log for debugging"
         cp /tmp/fbt_build.log /tmp/cpp_ide_fbt.log
 
-        echo "Step 6: Check for cpp_ide.fap"
-        if [ -f "build/f7-firmware-D/.extapps/cpp_ide.fap" ]; then
-          echo "SUCCESS!"
-          cp build/f7-firmware-D/.extapps/cpp_ide.fap /tmp/cpp_ide.fap
+        echo "Step 6: Check for test_app.fap"
+        if [ -f "build/f7-firmware-D/.extapps/test_app.fap" ]; then
+          echo "SUCCESS - test_app.fap built!"
+          cp build/f7-firmware-D/.extapps/test_app.fap /tmp/test_app.fap
         else
-          echo "FAILED - cpp_ide.fap not found"
+          echo "FAILED - test_app.fap not found. Listing all FAP files:"
           find build -name "*.fap" 2>/dev/null | head -10
           exit 1
         fi
@@ -62,8 +61,8 @@ jobs:
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
       with:
-        name: cpp_ide.fap
-        path: /tmp/cpp_ide.fap
+        name: test_app.fap
+        path: /tmp/test_app.fap
         if-no-files-found: warn
 
     - name: Upload build log for debugging
