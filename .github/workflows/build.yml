@@ -48,19 +48,8 @@ jobs:
         echo "Step 4b: Check file sizes"
         wc -l applications/examples/cpp_ide/*.c applications/examples/cpp_ide/*.h 2>&1 | tail -15
 
-        echo "Step 4c: Try to parse application.fam with Python"
-        python3 -c "
-import sys
-sys.path.insert(0, 'scripts/fbt_tools')
-try:
-    from fbt.appmanifest import FlipperAppType
-    manifest = {}
-    with open('applications/examples/cpp_ide/application.fam') as f:
-        exec(f.read(), {'App': lambda **kw: manifest.update(kw)})
-    print('Parsed manifest:', manifest)
-except Exception as e:
-    print('ERROR parsing application.fam:', e)
-" 2>&1 || echo "Python parsing failed or file missing"
+        echo "Step 4c: Count all application.fam files in examples/"
+        find applications/examples -name "application.fam" -exec echo {} \;
 
         echo "Step 5: Run fbt with full output (not fbt faps - examples apps are built with main firmware)"
         ./fbt 2>&1 | tee /tmp/fbt_build.log
