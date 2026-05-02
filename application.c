@@ -248,7 +248,6 @@ int32_t cpp_ide_app_main(void* p) {
     CppIdeApp* app = cpp_ide_app_alloc();
 
     ViewPort* view_port = view_port_alloc();
-    InputQueue* input_queue = furi_record_open(RECORD_GUI);
 
     view_port_draw_callback_set(view_port, editor_draw_callback, context);
     view_port_input_callback_set(view_port, input_callback, context);
