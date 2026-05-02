@@ -12,8 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - name: Install dependencies
       run: |
@@ -28,35 +26,29 @@ jobs:
         tar xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         echo "/tmp/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
 
-    - name: Clone Flipper Firmware and Setup
+    - name: Clone Flipper Firmware (SDK only)
       run: |
         cd /tmp
-        git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
-        cd flipperzero-firmware
-        cp -r $GITHUB_WORKSPACE applications/examples/cpp_ide
-        echo "cpp_ide copied successfully"
+        git clone --depth 1 https://github.com/flipperdevices/flipperzero-firmware.git fw_sdk
 
-    - name: Build FAP
+    - name: Build cpp_ide as External FAP
       run: |
-        cd /tmp/flipperzero-firmware
-        ./fbt faps 2>&1 | tee /tmp/build.log
-        find build/f7-firmware-D/.extapps -name "*.fap" -type f | sort
-
-    - name: Verify cpp_ide.fap
-      run: |
-        FAP_FILE="build/f7-firmware-D/.extapps/cpp_ide.fap"
-        if [ ! -f "/tmp/flipperzero-firmware/$FAP_FILE" ]; then
+        export FLIPPER_FW_PATH=/tmp/fw_sdk
+        cd $GITHUB_WORKSPACE
+        /tmp/fw_sdk/fbt -C . fap
+        mkdir -p /tmp/output
+        find build -name "cpp_ide.fap" -type f -exec cp {} /tmp/output/ \;
+        if [ ! -f /tmp/output/cpp_ide.fap ]; then
           echo "ERROR: cpp_ide.fap not found"
-          tail -100 /tmp/build.log
+          echo "Build directory contents:"
+          find build -type f -name "*.fap" | head -10 || echo "No FAP files found"
           exit 1
         fi
-        echo "SUCCESS: cpp_ide.fap built!"
-        ls -lh /tmp/flipperzero-firmware/$FAP_FILE
-        cp /tmp/flipperzero-firmware/$FAP_FILE /tmp/cpp_ide.fap
+        ls -lh /tmp/output/cpp_ide.fap
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/cpp_ide.fap
+        path: /tmp/output/cpp_ide.fap
         if-no-files-found: error
