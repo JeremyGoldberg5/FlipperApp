@@ -33,24 +33,19 @@ jobs:
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
-        # Create app directory matching the appid
-        mkdir -p applications/external/cpp_ide
-        # Copy app files to subdirectory (exclude manifest.c which is for internal apps)
-        cp $GITHUB_WORKSPACE/application.fam applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/application.c applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/application.h applications/external/cpp_ide/
-        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/cpp_ide/
-        cp -r $GITHUB_WORKSPACE/editor applications/external/cpp_ide/
-        cp -r $GITHUB_WORKSPACE/interpreter applications/external/cpp_ide/
 
-        # Create CMakeLists.txt for external apps directory to enable app discovery
-        printf 'cmake_minimum_required(VERSION 3.22)\nproject(flipper_external_apps)\nfile(GLOB app_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*")\nforeach(app_dir ${app_dirs})\n  if(EXISTS "${app_dir}/application.fam" AND IS_DIRECTORY "${app_dir}")\n    get_filename_component(app_name ${app_dir} NAME)\n    add_subdirectory(${app_name})\n  endif()\nendforeach()\n' > applications/external/CMakeLists.txt
+        # Create external apps directory
+        mkdir -p applications/external
+
+        # Copy app files directly to applications/external (not in a subdirectory)
+        cp $GITHUB_WORKSPACE/application.fam applications/external/
+        cp $GITHUB_WORKSPACE/application.c applications/external/
+        cp $GITHUB_WORKSPACE/application.h applications/external/
+        cp $GITHUB_WORKSPACE/CMakeLists.txt applications/external/
+        cp -r $GITHUB_WORKSPACE/editor applications/external/
+        cp -r $GITHUB_WORKSPACE/interpreter applications/external/
 
         # Add external apps directory to main CMakeLists if not already present
-        echo "Current directory: $(pwd)"
-        echo "Files in current directory:"
-        ls -la | head -20
-
         CMAKE_FILE="CMakeLists.txt"
         if [ -f "$CMAKE_FILE" ]; then
           if ! grep -q "add_subdirectory(applications/external)" "$CMAKE_FILE"; then
@@ -59,17 +54,13 @@ jobs:
           else
             echo "applications/external already in CMakeLists.txt"
           fi
-        else
-          echo "WARNING: CMakeLists.txt not found, but continuing anyway"
         fi
 
-        ls -la applications/external/cpp_ide/
+        echo "=== applications/external structure ==="
+        ls -la applications/external/
         echo ""
-        echo "=== Content of application.fam ==="
-        cat applications/external/cpp_ide/application.fam
-        echo ""
-        echo "=== CMakeLists.txt in applications/external ==="
-        cat applications/external/CMakeLists.txt
+        echo "=== Content of applications/external/application.fam ==="
+        cat applications/external/application.fam
 
     - name: Build FAP
       run: |
