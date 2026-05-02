@@ -4,6 +4,7 @@
 
 #define MAX_LINES 256
 #define MAX_LINE_LENGTH 256
+#define MAX_CODE_SIZE 8192
 
 typedef struct {
     char* lines[MAX_LINES];

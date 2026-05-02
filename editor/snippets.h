@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 typedef struct {
     const char* name;
     const char* code;

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 static bool is_identifier_start(char c) {
     return isalpha(c) || c == '_';
