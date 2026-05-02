@@ -28,125 +28,35 @@ jobs:
         tar xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
         echo "/tmp/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
 
-    - name: Clone Flipper Firmware
+    - name: Clone Flipper Firmware and Setup
       run: |
         cd /tmp
         git clone --recursive https://github.com/flipperdevices/flipperzero-firmware.git
         cd flipperzero-firmware
-
-        # Copy cpp_ide app into applications/examples/ (not external/)
-        # This is the ONLY directory guaranteed to be scanned by fbt's app discovery
-        echo "Copying cpp_ide to applications/examples/"
         cp -r $GITHUB_WORKSPACE applications/examples/cpp_ide
+        echo "cpp_ide copied successfully"
 
-        # Verify all required files are present
-        echo ""
-        echo "=== cpp_ide contents in applications/examples/ ==="
-        ls -la applications/examples/cpp_ide/ | head -15
-        echo ""
-
-        # Show the application.fam that will be discovered
-        echo "=== application.fam content ==="
-        cat applications/examples/cpp_ide/application.fam
-
-        # CRITICAL: Add cpp_ide to applications/examples/CMakeLists.txt
-        # The firmware's CMakeLists needs to include cpp_ide for CMake to build it
-        echo ""
-        echo "=== Checking applications/examples/CMakeLists.txt ==="
-
-        if [ -f "applications/examples/CMakeLists.txt" ]; then
-          echo "CMakeLists.txt exists, checking for cpp_ide..."
-          if ! grep -q "cpp_ide" applications/examples/CMakeLists.txt; then
-            echo "Adding cpp_ide to applications/examples/CMakeLists.txt"
-            # Add cpp_ide to the end of the file
-            echo "add_subdirectory(cpp_ide)" >> applications/examples/CMakeLists.txt
-          else
-            echo "cpp_ide already in CMakeLists.txt"
-          fi
-        else
-          echo "No CMakeLists.txt in applications/examples/, creating one..."
-          cat > applications/examples/CMakeLists.txt << 'EOF'
-# Automatically discover and build all example apps
-file(GLOB app_dirs "${CMAKE_CURRENT_SOURCE_DIR}/*")
-foreach(app_dir ${app_dirs})
-  if(IS_DIRECTORY "${app_dir}" AND EXISTS "${app_dir}/application.fam")
-    get_filename_component(app_name "${app_dir}" NAME)
-    if(NOT "${app_name}" STREQUAL "CMakeLists.txt")
-      add_subdirectory("${app_name}")
-    endif()
-  endif()
-endforeach()
-EOF
-        fi
-
-        echo "=== Final CMakeLists.txt content (last 20 lines) ==="
-        tail -20 applications/examples/CMakeLists.txt
-
-    - name: Build FAP from firmware
+    - name: Build FAP
       run: |
         cd /tmp/flipperzero-firmware
-
-        # DIAGNOSTIC: Verify cpp_ide was actually copied
-        echo "=== DIAGNOSTIC: Check if cpp_ide exists ==="
-        if [ -d "applications/examples/cpp_ide" ]; then
-          echo "✓ cpp_ide directory exists"
-          ls -la applications/examples/cpp_ide/ | head -20
-        else
-          echo "✗ FATAL: cpp_ide directory does NOT exist"
-          echo "Available examples:"
-          ls -d applications/examples/*/ | head -20
-          exit 1
-        fi
-
-        if [ -f "applications/examples/cpp_ide/application.fam" ]; then
-          echo "✓ application.fam exists"
-          echo "Content:"
-          cat applications/examples/cpp_ide/application.fam
-        else
-          echo "✗ FATAL: application.fam NOT found"
-          exit 1
-        fi
-
-        echo ""
-        echo "=== Running fbt faps ==="
-        # Run fbt faps to build all FAPs, including cpp_ide
-        # fbt will automatically discover cpp_ide in applications/examples/
-        ./fbt faps 2>&1 | tee build.log
-
-        echo ""
-        echo "=== All FAP files generated ==="
+        ./fbt faps 2>&1 | tee /tmp/build.log
         find build/f7-firmware-D/.extapps -name "*.fap" -type f | sort
 
-        echo ""
-        echo "=== Looking for cpp_ide.fap ==="
-        FAP_PATH="build/f7-firmware-D/.extapps/cpp_ide.fap"
-
-        if [ ! -f "$FAP_PATH" ]; then
-          echo "FATAL: cpp_ide.fap was not built"
-          echo "Expected location: $FAP_PATH"
-          echo ""
-          echo "=== Last 50 lines of build log ==="
-          tail -50 build.log
+    - name: Verify cpp_ide.fap
+      run: |
+        FAP_FILE="build/f7-firmware-D/.extapps/cpp_ide.fap"
+        if [ ! -f "/tmp/flipperzero-firmware/$FAP_FILE" ]; then
+          echo "ERROR: cpp_ide.fap not found"
+          tail -100 /tmp/build.log
           exit 1
         fi
+        echo "SUCCESS: cpp_ide.fap built!"
+        ls -lh /tmp/flipperzero-firmware/$FAP_FILE
+        cp /tmp/flipperzero-firmware/$FAP_FILE /tmp/cpp_ide.fap
 
-        echo "SUCCESS: cpp_ide.fap found!"
-        ls -lh "$FAP_PATH"
-
-        # Copy to output directory for upload
-        mkdir -p /tmp/fap_output
-        cp "$FAP_PATH" /tmp/fap_output/cpp_ide.fap
-        ls -lh /tmp/fap_output/cpp_ide.fap
-
-    - name: Upload FAP artifact
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
-        path: /tmp/fap_output/cpp_ide.fap
+        path: /tmp/cpp_ide.fap
         if-no-files-found: error
-
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v2
-      with:
-        files: /tmp/fap_output/cpp_ide.fap
