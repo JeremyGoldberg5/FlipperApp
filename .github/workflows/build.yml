@@ -64,19 +64,21 @@ jobs:
         fi
         ls -la applications/examples/ | grep -E "CMakeLists|cpp_ide|test_app"
 
-        echo "Step 5: Build firmware"
-        ./fbt 2>&1 | tee /tmp/fbt_build.log | tail -50
+        echo "Step 5: Build test_app FAP with correct command: fbt fap_test_app"
+        ./fbt fap_test_app 2>&1 | tee /tmp/fbt_build.log
 
         echo "Step 5b: Save full log for debugging"
         cp /tmp/fbt_build.log /tmp/cpp_ide_fbt.log
 
-        echo "Step 6: Check for test_app.fap"
-        if [ -f "build/f7-firmware-D/.extapps/test_app.fap" ]; then
-          echo "SUCCESS - test_app.fap built!"
-          cp build/f7-firmware-D/.extapps/test_app.fap /tmp/cpp_ide.fap
+        echo "Step 6: Find and copy the generated test_app.fap"
+        FAP_FILE=$(find build -name "test_app.fap" -type f 2>/dev/null | head -1)
+        if [ -n "$FAP_FILE" ]; then
+          echo "SUCCESS - Found test_app.fap at: $FAP_FILE"
+          cp "$FAP_FILE" /tmp/cpp_ide.fap
         else
           echo "FAILED - test_app.fap not found"
-          find build -name "*.fap" 2>/dev/null | head -20 || echo "No FAP files found"
+          echo "Looking for any FAP files:"
+          find build -name "*.fap" -type f 2>/dev/null || echo "No FAP files found in build directory"
           exit 1
         fi
 
