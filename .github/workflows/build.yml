@@ -66,16 +66,30 @@ jobs:
       run: |
         cd /tmp/flipperzero-firmware
         ./fbt faps 2>&1 | tee build.log
+
+        # List all built FAPs to verify what was created
+        echo ""
+        echo "=== All built FAP files ==="
+        find build/f7-firmware-D/.extapps -name "*.fap" -type f | sort
+
+        # Verify cpp_ide.fap exists - FAIL if missing
         echo ""
         echo "=== Checking for cpp_ide.fap ==="
-        ls -la build/f7-firmware-D/.extapps/cpp_ide.fap 2>&1
+        FAP_FILE="build/f7-firmware-D/.extapps/cpp_ide.fap"
+        if [ ! -f "$FAP_FILE" ]; then
+          echo "FATAL: cpp_ide.fap not found at $FAP_FILE"
+          echo "Build FAILED - external app was not compiled"
+          exit 1
+        fi
+        echo "SUCCESS: Found $FAP_FILE"
+        ls -lh "$FAP_FILE"
 
     - name: Upload FAP artifact
       uses: actions/upload-artifact@v4
       with:
         name: cpp_ide.fap
         path: /tmp/flipperzero-firmware/build/f7-firmware-D/.extapps/cpp_ide.fap
-        if-no-files-found: warn
+        if-no-files-found: error
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')

@@ -4,6 +4,4 @@ App(
     apptype="external",
     entry_point="cpp_ide_app_main",
     requires=["gui"],
-    provides=["cpp_ide"],
-    category="Tools",
 )
