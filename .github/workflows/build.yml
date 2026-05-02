@@ -30,13 +30,11 @@ jobs:
         echo "Step 1: Create app directory"
         mkdir -p applications/examples/cpp_ide
 
-        echo "Step 2: Copy source files (note: NO CMakeLists.txt - not needed for apps in examples/)"
+        echo "Step 2: Copy source files - MINIMAL APP ONLY for diagnostic"
         cp $GITHUB_WORKSPACE/application.fam applications/examples/cpp_ide/
-        # Use minimal app for diagnostic - if this builds, the infrastructure works
+        # Diagnostic: use ONLY minimal app with no dependencies
         cp $GITHUB_WORKSPACE/application_minimal.c applications/examples/cpp_ide/application.c
-        cp $GITHUB_WORKSPACE/application.h applications/examples/cpp_ide/
-        cp -r $GITHUB_WORKSPACE/editor applications/examples/cpp_ide/ || true
-        cp -r $GITHUB_WORKSPACE/interpreter applications/examples/cpp_ide/ || true
+        # Don't copy editor/interpreter for minimal test - if minimal builds, infrastructure works
 
         echo "Step 3: Verify files copied"
         ls -la applications/examples/cpp_ide/
