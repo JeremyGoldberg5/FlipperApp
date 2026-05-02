@@ -1,0 +1,1410 @@
+Run cd /tmp/flipperzero-firmware
+  cd /tmp/flipperzero-firmware
+  ./fbt faps 2>&1 | tee build.log
+  echo ""
+  echo "=== Build completed. Checking for FAP file ==="
+  echo "=== Looking in build/f7-firmware-D/.extapps/ ==="
+  ls -la build/f7-firmware-D/.extapps/*.fap 2>/dev/null | grep cpp_ide || echo "cpp_ide.fap not found in extapps"
+  echo ""
+  echo "=== All FAP files in build directory ==="
+  find build -name "*.fap" -o -name "*cpp_ide*" | head -20
+  shell: /usr/bin/bash -e {0}
+Checking for tar..yes
+Checking if downloaded toolchain tgz exists..no
+Checking curl..yes
+Downloading toolchain:
+
+###                                                                        4.4%
+###########                                                               15.5%
+##################                                                        25.7%
+##########################                                                37.0%
+#################################                                         46.2%
+########################################                                  56.1%
+###############################################                           65.4%
+#####################################################                     74.0%
+###########################################################               82.9%
+#################################################################         90.6%
+####################################################################      95.5%
+######################################################################## 100.0%
+done
+Removing old toolchain..done
+Unpacking toolchain to '/tmp/flipperzero-firmware/toolchain':
+################################################################################ 100.0%
+linking toolchain to 'current'..done
+Cleaning up..done
+
+fbt: warning: App folder '/tmp/flipperzero-firmware/applications/external': missing manifest (application.fam)
+LoadAppManifest, line 130, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_apps.py"
+	CC	applications/system/hid_app/scenes/hid_scene.c
+	CC	applications/system/hid_app/scenes/hid_scene_main.c
+	CC	applications/system/hid_app/scenes/hid_scene_start.c
+	ICONS	build/f7-firmware-D/.extapps/hid_usb/hid_icons.c
+	CC	applications/system/hid_app/hid.c
+	CC	applications/system/hid_app/transport_usb.c
+	ICONS	build/f7-firmware-D/assets/compiled/assets_icons.c
+	CC	build/f7-firmware-D/.extapps/hid_usb/hid_icons.c
+	CC	applications/system/hid_app/views/hid_mouse.c
+	CC	applications/system/hid_app/views/hid_media.c
+	CC	applications/system/hid_app/views/hid_keynote.c
+	CC	applications/system/hid_app/views/hid_tiktok.c
+	CC	applications/system/hid_app/views/hid_keyboard.c
+	CC	applications/system/hid_app/views/hid_mouse_jiggler.c
+	CC	applications/system/hid_app/scenes/hid_scene_unpair.c
+	CC	applications/system/hid_app/views/hid_mouse_clicker.c
+	PROTO	assets/protobuf/application.proto
+	DOLPHIN	blocking
+2026-04-24 05:03:40,960 [INFO] Processing Dolphin sources
+2026-04-24 05:03:40,960 [INFO] Loading data
+2026-04-24 05:03:40,960 [INFO] Loading directory assets/dolphin/blocking
+2026-04-24 05:03:40,961 [INFO] Packing
+	DOLPHIN	internal
+	LINK	build/f7-firmware-D/.extapps/hid_usb_d.elf
+2026-04-24 05:03:41,011 [INFO] Complete
+2026-04-24 05:03:41,040 [INFO] Processing Dolphin sources
+2026-04-24 05:03:41,040 [INFO] Loading data
+2026-04-24 05:03:41,040 [INFO] Loading directory assets/dolphin/internal
+2026-04-24 05:03:41,041 [INFO] Packing
+	CC	applications/system/hid_app/scenes/hid_scene.c
+	CC	applications/system/hid_app/scenes/hid_scene_main.c
+	CC	applications/system/hid_app/scenes/hid_scene_start.c
+2026-04-24 05:03:41,099 [INFO] Complete
+	ICONS	build/f7-firmware-D/.extapps/hid_ble/hid_icons.c
+	CC	applications/system/hid_app/hid.c
+	CC	applications/system/hid_app/views/hid_media.c
+	CC	applications/system/hid_app/views/hid_keynote.c
+	CC	applications/system/hid_app/views/hid_tiktok.c
+	CC	applications/system/hid_app/views/hid_keyboard.c
+	CC	applications/system/hid_app/views/hid_mouse_jiggler.c
+	CC	applications/system/hid_app/scenes/hid_scene_unpair.c
+	CC	applications/system/hid_app/views/hid_mouse_clicker.c
+	CC	applications/system/hid_app/views/hid_mouse.c
+	PBVER	build/f7-firmware-D/assets/compiled/protobuf_version.h
+	CC	applications/system/hid_app/transport_ble.c
+	CC	build/f7-firmware-D/.extapps/hid_ble/hid_icons.c
+	CC	lib/ble_profile/extra_profiles/hid_profile.c
+	CC	lib/ble_profile/extra_services/hid_service.c
+	CC	applications/system/snake_game/snake_game.c
+	CC	applications/examples/example_adc/example_adc.c
+	AR	build/f7-firmware-D/ble_profile/libble_profile.a
+	RANLIB	build/f7-firmware-D/ble_profile/libble_profile.a
+	LINK	build/f7-firmware-D/.extapps/snake_game_d.elf
+	INSTALL	build/f7-firmware-D/lib/libble_profile.a
+	LINK	build/f7-firmware-D/.extapps/hid_ble_d.elf
+	CC	applications/examples/example_apps_assets/example_apps_assets.c
+	CC	applications/examples/example_apps_data/example_apps_data.c
+	APIPREP	build/f7-firmware-D/sdk_origin.i
+	APIPP	build/f7-firmware-D/sdk_origin.i
+	LINK	build/f7-firmware-D/.extapps/example_apps_data_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_apps_assets_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_adc_d.elf
+	CC	applications/examples/example_ble_beacon/scenes/scene_input_beacon_data.c
+	CC	applications/examples/example_ble_beacon/scenes/scene_input_mac_addr.c
+	CC	applications/examples/example_ble_beacon/scenes/scene_menu.c
+	SDKCHK	targets/f7/api_symbols.csv
+	ICONS	build/f7-firmware-D/.extapps/example_ble_beacon/example_ble_beacon_icons.c
+	CC	applications/examples/example_ble_beacon/scenes/scenes.c
+	CC	applications/examples/example_ble_beacon/scenes/scene_run_beacon.c
+	CC	applications/examples/example_ble_beacon/ble_beacon_app.c
+	CC	build/f7-firmware-D/.extapps/example_ble_beacon/example_ble_beacon_icons.c
+	CC	applications/examples/example_custom_font/example_custom_font.c
+	LINK	build/f7-firmware-D/.extapps/example_ble_beacon_d.elf
+	CC	applications/examples/example_event_loop/example_event_loop_event_flags.c
+	LINK	build/f7-firmware-D/.extapps/example_custom_font_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_event_loop_event_flags_d.elf
+	CC	applications/examples/example_event_loop/example_event_loop_timer.c
+	CC	applications/examples/example_event_loop/example_event_loop_mutex.c
+	LINK	build/f7-firmware-D/.extapps/example_event_loop_timer_d.elf
+	CC	applications/examples/example_event_loop/example_event_loop_stream_buffer.c
+	LINK	build/f7-firmware-D/.extapps/example_event_loop_mutex_d.elf
+	CC	applications/examples/example_event_loop/example_event_loop_multi.c
+	LINK	build/f7-firmware-D/.extapps/example_event_loop_stream_buffer_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_event_loop_multi_d.elf
+API version 87.1 is up to date
+	ICONS	build/f7-firmware-D/.extapps/example_images/example_images_icons.c
+	APPMETA	build/f7-firmware-D/.extapps/example_event_loop_stream_buffer.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_apps_data.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_event_loop_mutex.fap
+	FAP	build/f7-firmware-D/.extapps/example_event_loop_mutex.fap
+	FAP	build/f7-firmware-D/.extapps/example_event_loop_stream_buffer.fap
+	FAP	build/f7-firmware-D/.extapps/example_apps_data.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_event_loop_mutex.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_event_loop_stream_buffer.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_apps_data.fap
+	CC	applications/examples/example_images/example_images.c
+	APPCHK	build/f7-firmware-D/.extapps/example_event_loop_mutex.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_apps_data.fap
+	APPMETA	build/f7-firmware-D/.extapps/snake_game.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_event_loop_stream_buffer.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_custom_font.fap
+	FAP	build/f7-firmware-D/.extapps/example_custom_font.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_apps_assets.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_custom_font.fap
+	APPFILE	build/f7-firmware-D/.extapps/example_apps_assets.fap
+	FAP	build/f7-firmware-D/.extapps/example_apps_assets.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_apps_assets.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_event_loop_event_flags.fap
+	FAP	build/f7-firmware-D/.extapps/example_event_loop_event_flags.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_event_loop_event_flags.fap
+	FAP	build/f7-firmware-D/.extapps/snake_game.fap
+	FASTFAP	build/f7-firmware-D/.extapps/snake_game.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_apps_assets.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_custom_font.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_event_loop_timer.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_event_loop_event_flags.fap
+	FAP	build/f7-firmware-D/.extapps/example_event_loop_timer.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_event_loop_multi.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_adc.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_event_loop_timer.fap
+	FAP	build/f7-firmware-D/.extapps/example_event_loop_multi.fap
+	FAP	build/f7-firmware-D/.extapps/example_adc.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_event_loop_multi.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_adc.fap
+	APPCHK	build/f7-firmware-D/.extapps/snake_game.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_event_loop_timer.fap
+	APPMETA	build/f7-firmware-D/.extapps/hid_ble.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_ble_beacon.fap
+	FAP	build/f7-firmware-D/.extapps/hid_ble.fap
+	FAP	build/f7-firmware-D/.extapps/example_ble_beacon.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_ble_beacon.fap
+	FASTFAP	build/f7-firmware-D/.extapps/hid_ble.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_event_loop_multi.fap
+	APPMETA	build/f7-firmware-D/.extapps/hid_usb.fap
+	FAP	build/f7-firmware-D/.extapps/hid_usb.fap
+	FASTFAP	build/f7-firmware-D/.extapps/hid_usb.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_ble_beacon.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_adc.fap
+	CC	build/f7-firmware-D/.extapps/example_images/example_images_icons.c
+	CC	applications/examples/example_number_input/scenes/example_number_input_scene.c
+	CC	applications/examples/example_number_input/scenes/example_number_input_scene_input_max.c
+	LINK	build/f7-firmware-D/.extapps/example_images_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/hid_ble.fap
+	APPCHK	build/f7-firmware-D/.extapps/hid_usb.fap
+	CC	applications/examples/example_number_input/scenes/example_number_input_scene_input_min.c
+	CC	applications/examples/example_number_input/scenes/example_number_input_scene_input_number.c
+	CC	applications/examples/example_number_input/scenes/example_number_input_scene_show_number.c
+	APPMETA	build/f7-firmware-D/.extapps/example_images.fap
+	FAP	build/f7-firmware-D/.extapps/example_images.fap
+	CC	applications/examples/example_number_input/example_number_input.c
+	FASTFAP	build/f7-firmware-D/.extapps/example_images.fap
+	CC	applications/examples/example_plugins/example_plugins.c
+	CC	applications/examples/example_plugins/example_plugins_multi.c
+	LINK	build/f7-firmware-D/.extapps/example_number_input_d.elf
+	CC	applications/examples/example_plugins/example_plugins.c
+	APPCHK	build/f7-firmware-D/.extapps/example_images.fap
+	CC	applications/examples/example_plugins/example_plugins_multi.c
+	CC	applications/examples/example_plugins/plugin1.c
+	LINK	build/f7-firmware-D/.extapps/example_plugins_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/example_number_input.fap
+	FAP	build/f7-firmware-D/.extapps/example_number_input.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_number_input.fap
+	CC	applications/examples/example_plugins/plugin2.c
+	APPMETA	build/f7-firmware-D/.extapps/example_plugins.fap
+	FAP	build/f7-firmware-D/.extapps/example_plugins.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_plugins.fap
+	CC	applications/examples/example_plugins_advanced/app_api.c
+	APPCHK	build/f7-firmware-D/.extapps/example_plugins.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_number_input.fap
+	CPP	applications/examples/example_plugins_advanced/app_api_table.cpp
+	CC	applications/examples/example_plugins_advanced/example_advanced_plugins.c
+	LINK	build/f7-firmware-D/.extapps/example_plugins_multi_d.elf
+	CC	applications/examples/example_plugins_advanced/plugin1.c
+	APPMETA	build/f7-firmware-D/.extapps/example_plugins_multi.fap
+	FAP	build/f7-firmware-D/.extapps/example_plugins_multi.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_plugins_multi.fap
+	CC	applications/examples/example_plugins_advanced/plugin2.c
+	LINK	build/f7-firmware-D/.extapps/advanced_plugin2_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_advanced_plugins_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/example_plugins_multi.fap
+	CC	applications/examples/example_thermo/example_thermo.c
+	LINK	build/f7-firmware-D/.extapps/advanced_plugin1_d.elf
+	CC	applications/examples/example_view_dispatcher/example_view_dispatcher.c
+	APPMETA	build/f7-firmware-D/.extapps/advanced_plugin1.fal
+	APPMETA	build/f7-firmware-D/.extapps/advanced_plugin2.fal
+	FAP	build/f7-firmware-D/.extapps/advanced_plugin1.fal
+	FAP	build/f7-firmware-D/.extapps/advanced_plugin2.fal
+	FASTFAP	build/f7-firmware-D/.extapps/advanced_plugin1.fal
+	FASTFAP	build/f7-firmware-D/.extapps/advanced_plugin2.fal
+	LINK	build/f7-firmware-D/.extapps/example_thermo_d.elf
+	LINK	build/f7-firmware-D/.extapps/example_view_dispatcher_d.elf
+	INSTALL	build/f7-firmware-D/.extapps/example_advanced_plugins/assets/plugins/advanced_plugin1.fal
+	CC	applications/examples/example_view_holder/example_view_holder.c
+	APPMETA	build/f7-firmware-D/.extapps/example_thermo.fap
+	FAP	build/f7-firmware-D/.extapps/example_thermo.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_thermo.fap
+	LINK	build/f7-firmware-D/.extapps/example_view_holder_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/example_thermo.fap
+	INSTALL	build/f7-firmware-D/.extapps/example_advanced_plugins/assets/plugins/advanced_plugin2.fal
+	CC	applications/services/cli/commands/hello_world.c
+	APPMETA	build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+	APPFILE	build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+	FAP	build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_view_dispatcher.fap
+	FAP	build/f7-firmware-D/.extapps/example_view_dispatcher.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_view_dispatcher.fap
+	APPMETA	build/f7-firmware-D/.extapps/example_view_holder.fap
+	FAP	build/f7-firmware-D/.extapps/example_view_holder.fap
+	FASTFAP	build/f7-firmware-D/.extapps/example_view_holder.fap
+	LINK	build/f7-firmware-D/.extapps/cli_hello_world_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/cli_hello_world.fal
+	FAP	build/f7-firmware-D/.extapps/cli_hello_world.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_hello_world.fal
+	APPCHK	build/f7-firmware-D/.extapps/example_view_dispatcher.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_view_holder.fap
+	APPCHK	build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+	CC	applications/services/cli/commands/neofetch.c
+	CC	applications/services/cli/commands/subshell_demo.c
+	CC	applications/services/cli/commands/buzzer.c
+	LINK	build/f7-firmware-D/.extapps/cli_neofetch_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/cli_hello_world.fal
+	LINK	build/f7-firmware-D/.extapps/cli_buzzer_d.elf
+	LINK	build/f7-firmware-D/.extapps/cli_subshell_demo_d.elf
+	CC	applications/main/ibutton/ibutton_cli.c
+	APPMETA	build/f7-firmware-D/.extapps/cli_neofetch.fal
+	FAP	build/f7-firmware-D/.extapps/cli_neofetch.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_neofetch.fal
+	APPMETA	build/f7-firmware-D/.extapps/cli_buzzer.fal
+	FAP	build/f7-firmware-D/.extapps/cli_buzzer.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_buzzer.fal
+	APPMETA	build/f7-firmware-D/.extapps/cli_subshell_demo.fal
+	FAP	build/f7-firmware-D/.extapps/cli_subshell_demo.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_subshell_demo.fal
+	LINK	build/f7-firmware-D/.extapps/cli_ikey_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/cli_buzzer.fal
+	APPCHK	build/f7-firmware-D/.extapps/cli_subshell_demo.fal
+	CC	applications/main/infrared/infrared_cli.c
+	CC	lib/infrared/encoder_decoder/common/infrared_common_decoder.c
+	APPMETA	build/f7-firmware-D/.extapps/cli_ikey.fal
+	FAP	build/f7-firmware-D/.extapps/cli_ikey.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_ikey.fal
+	APPCHK	build/f7-firmware-D/.extapps/cli_neofetch.fal
+	CC	lib/infrared/encoder_decoder/common/infrared_common_encoder.c
+	APPCHK	build/f7-firmware-D/.extapps/cli_ikey.fal
+	CC	lib/infrared/encoder_decoder/kaseikyo/infrared_decoder_kaseikyo.c
+	CC	lib/infrared/encoder_decoder/kaseikyo/infrared_encoder_kaseikyo.c
+	CC	lib/infrared/encoder_decoder/kaseikyo/infrared_protocol_kaseikyo.c
+	CC	lib/infrared/encoder_decoder/nec/infrared_decoder_nec.c
+	CC	lib/infrared/encoder_decoder/nec/infrared_encoder_nec.c
+	CC	lib/infrared/encoder_decoder/nec/infrared_protocol_nec.c
+	CC	lib/infrared/encoder_decoder/pioneer/infrared_decoder_pioneer.c
+	CC	lib/infrared/encoder_decoder/pioneer/infrared_encoder_pioneer.c
+	CC	lib/infrared/encoder_decoder/pioneer/infrared_protocol_pioneer.c
+	CC	lib/infrared/encoder_decoder/rc5/infrared_decoder_rc5.c
+	CC	lib/infrared/encoder_decoder/rc5/infrared_encoder_rc5.c
+	CC	lib/infrared/encoder_decoder/rc5/infrared_protocol_rc5.c
+	CC	lib/infrared/encoder_decoder/rc6/infrared_decoder_rc6.c
+	CC	lib/infrared/encoder_decoder/rc6/infrared_encoder_rc6.c
+	CC	lib/infrared/encoder_decoder/rc6/infrared_protocol_rc6.c
+	CC	lib/infrared/encoder_decoder/rca/infrared_decoder_rca.c
+	CC	lib/infrared/encoder_decoder/rca/infrared_encoder_rca.c
+	CC	lib/infrared/encoder_decoder/rca/infrared_protocol_rca.c
+	CC	lib/infrared/encoder_decoder/samsung/infrared_decoder_samsung.c
+	CC	lib/infrared/encoder_decoder/samsung/infrared_encoder_samsung.c
+	CC	lib/infrared/encoder_decoder/samsung/infrared_protocol_samsung.c
+	CC	lib/infrared/encoder_decoder/sirc/infrared_decoder_sirc.c
+	CC	lib/infrared/encoder_decoder/sirc/infrared_encoder_sirc.c
+	CC	lib/infrared/encoder_decoder/sirc/infrared_protocol_sirc.c
+	CC	lib/infrared/encoder_decoder/infrared.c
+	CC	lib/infrared/signal/infrared_brute_force.c
+	CC	lib/infrared/signal/infrared_signal.c
+	CC	lib/infrared/worker/infrared_transmit.c
+	CC	lib/infrared/worker/infrared_worker.c
+	CC	applications/main/lfrfid/lfrfid_cli.c
+	CC	applications/main/nfc/plugins/supported_cards/all_in_one.c
+	LINK	build/f7-firmware-D/.extapps/all_in_one_parser_d.elf
+	CC	applications/main/nfc/plugins/supported_cards/microel.c
+	LINK	build/f7-firmware-D/.extapps/cli_rfid_d.elf
+	AR	build/f7-firmware-D/infrared/libinfrared.a
+	RANLIB	build/f7-firmware-D/infrared/libinfrared.a
+	APPMETA	build/f7-firmware-D/.extapps/all_in_one_parser.fal
+	FAP	build/f7-firmware-D/.extapps/all_in_one_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/all_in_one_parser.fal
+	INSTALL	build/f7-firmware-D/lib/libinfrared.a
+	LINK	build/f7-firmware-D/.extapps/cli_ir_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/cli_rfid.fal
+	FAP	build/f7-firmware-D/.extapps/cli_rfid.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_rfid.fal
+	LINK	build/f7-firmware-D/.extapps/microel_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/microel_parser.fal
+	FAP	build/f7-firmware-D/.extapps/microel_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/microel_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/cli_ir.fal
+	FAP	build/f7-firmware-D/.extapps/cli_ir.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_ir.fal
+	APPCHK	build/f7-firmware-D/.extapps/all_in_one_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/mizip.c
+	APPCHK	build/f7-firmware-D/.extapps/cli_rfid.fal
+	APPCHK	build/f7-firmware-D/.extapps/microel_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/hi.c
+	CC	applications/main/nfc/plugins/supported_cards/opal.c
+	LINK	build/f7-firmware-D/.extapps/mizip_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/cli_ir.fal
+	LINK	build/f7-firmware-D/.extapps/hi_parser_d.elf
+	CC	applications/main/nfc/plugins/supported_cards/mykey.c
+	APPMETA	build/f7-firmware-D/.extapps/mizip_parser.fal
+	FAP	build/f7-firmware-D/.extapps/mizip_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/mizip_parser.fal
+	LINK	build/f7-firmware-D/.extapps/opal_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/hi_parser.fal
+	FAP	build/f7-firmware-D/.extapps/hi_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/hi_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/opal_parser.fal
+	FAP	build/f7-firmware-D/.extapps/opal_parser.fal
+	LINK	build/f7-firmware-D/.extapps/mykey_parser_d.elf
+	FASTFAP	build/f7-firmware-D/.extapps/opal_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/mykey_parser.fal
+	FAP	build/f7-firmware-D/.extapps/mykey_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/mykey_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/hi_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/myki.c
+	LINK	build/f7-firmware-D/.extapps/myki_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/mizip_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/opal_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/troika.c
+	CC	applications/main/nfc/plugins/supported_cards/social_moscow.c
+	APPMETA	build/f7-firmware-D/.extapps/myki_parser.fal
+	FAP	build/f7-firmware-D/.extapps/myki_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/mykey_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/myki_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/washcity.c
+	LINK	build/f7-firmware-D/.extapps/troika_parser_d.elf
+	LINK	build/f7-firmware-D/.extapps/social_moscow_parser_d.elf
+	LINK	build/f7-firmware-D/.extapps/washcity_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/troika_parser.fal
+	FAP	build/f7-firmware-D/.extapps/troika_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/troika_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/myki_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/plantain.c
+	APPMETA	build/f7-firmware-D/.extapps/social_moscow_parser.fal
+	FAP	build/f7-firmware-D/.extapps/social_moscow_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/social_moscow_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/troika_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/washcity_parser.fal
+	FAP	build/f7-firmware-D/.extapps/washcity_parser.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/troika_parser.fal: app may not be runnable. Symbols not resolved using firmware's API: {'render_section_header', 'mosgortrans_parse_transport_block'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	FASTFAP	build/f7-firmware-D/.extapps/washcity_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/two_cities.c
+	LINK	build/f7-firmware-D/.extapps/plantain_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/plantain_parser.fal
+	FAP	build/f7-firmware-D/.extapps/plantain_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/plantain_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/social_moscow_parser.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/social_moscow_parser.fal: app may not be runnable. Symbols not resolved using firmware's API: {'render_section_header', 'mosgortrans_parse_transport_block'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/main/nfc/plugins/supported_cards/aime.c
+	LINK	build/f7-firmware-D/.extapps/two_cities_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/washcity_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/bip.c
+	APPMETA	build/f7-firmware-D/.extapps/two_cities_parser.fal
+	FAP	build/f7-firmware-D/.extapps/two_cities_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/two_cities_parser.fal
+	LINK	build/f7-firmware-D/.extapps/aime_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/plantain_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/umarsh.c
+	APPMETA	build/f7-firmware-D/.extapps/aime_parser.fal
+	FAP	build/f7-firmware-D/.extapps/aime_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/aime_parser.fal
+	LINK	build/f7-firmware-D/.extapps/bip_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/two_cities_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/gallagher.c
+	APPMETA	build/f7-firmware-D/.extapps/bip_parser.fal
+	FAP	build/f7-firmware-D/.extapps/bip_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/bip_parser.fal
+	LINK	build/f7-firmware-D/.extapps/umarsh_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/aime_parser.fal
+	LINK	build/f7-firmware-D/.extapps/gallagher_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/umarsh_parser.fal
+	FAP	build/f7-firmware-D/.extapps/umarsh_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/umarsh_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/clipper.c
+	APPCHK	build/f7-firmware-D/.extapps/bip_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/umarsh_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/hid.c
+	CC	applications/main/nfc/plugins/supported_cards/itso.c
+	LINK	build/f7-firmware-D/.extapps/clipper_parser_d.elf
+	LINK	build/f7-firmware-D/.extapps/hid_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/gallagher_parser.fal
+	FAP	build/f7-firmware-D/.extapps/gallagher_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/clipper_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/gallagher_parser.fal
+	FAP	build/f7-firmware-D/.extapps/clipper_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/clipper_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/hid_parser.fal
+	FAP	build/f7-firmware-D/.extapps/hid_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/hid_parser.fal
+	LINK	build/f7-firmware-D/.extapps/itso_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/itso_parser.fal
+	FAP	build/f7-firmware-D/.extapps/itso_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/itso_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/clipper_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/gallagher_parser.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/gallagher_parser.fal: app may not be runnable. Symbols not resolved using firmware's API: {'gallagher_deobfuscate_and_parse_credential', 'GALLAGHER_CARDAX_ASCII'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/hid_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/skylanders.c
+	CC	applications/main/nfc/plugins/supported_cards/hworld.c
+	CC	applications/main/nfc/plugins/supported_cards/trt.c
+	LINK	build/f7-firmware-D/.extapps/trt_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/itso_parser.fal
+	LINK	build/f7-firmware-D/.extapps/skylanders_parser_d.elf
+	LINK	build/f7-firmware-D/.extapps/hworld_parser_d.elf
+	CC	applications/main/nfc/plugins/supported_cards/ndef.c
+	APPMETA	build/f7-firmware-D/.extapps/trt_parser.fal
+	FAP	build/f7-firmware-D/.extapps/trt_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/trt_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/skylanders_parser.fal
+	FAP	build/f7-firmware-D/.extapps/skylanders_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/skylanders_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/hworld_parser.fal
+	FAP	build/f7-firmware-D/.extapps/hworld_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/hworld_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/trt_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/ndef.c
+	LINK	build/f7-firmware-D/.extapps/ndef_ul_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/skylanders_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/hworld_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/ndef_ul_parser.fal
+	FAP	build/f7-firmware-D/.extapps/ndef_ul_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/ndef_ul_parser.fal
+	CC	applications/main/nfc/plugins/supported_cards/ndef.c
+	CC	applications/main/nfc/plugins/supported_cards/disney_infinity.c
+	LINK	build/f7-firmware-D/.extapps/ndef_mfc_parser_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/ndef_ul_parser.fal
+	CC	lib/mbedtls/library/aes.c
+	CC	lib/mbedtls/library/bignum.c
+	LINK	build/f7-firmware-D/.extapps/ndef_slix_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/ndef_slix_parser.fal
+	FAP	build/f7-firmware-D/.extapps/ndef_slix_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/ndef_slix_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/ndef_mfc_parser.fal
+	FAP	build/f7-firmware-D/.extapps/ndef_mfc_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/ndef_mfc_parser.fal
+	CC	lib/mbedtls/library/bignum_core.c
+	APPCHK	build/f7-firmware-D/.extapps/ndef_mfc_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/ndef_slix_parser.fal
+	CC	lib/mbedtls/library/ecdsa.c
+	CC	lib/mbedtls/library/ecp.c
+	CC	lib/mbedtls/library/ecp_curves.c
+	CC	lib/mbedtls/library/md.c
+	CC	lib/mbedtls/library/md5.c
+	CC	lib/mbedtls/library/platform_util.c
+	CC	lib/mbedtls/library/ripemd160.c
+	CC	lib/mbedtls/library/sha1.c
+	CC	lib/mbedtls/library/sha256.c
+	CC	lib/mbedtls/library/des.c
+	CC	applications/main/nfc/cli/commands/mfu/nfc_cli_command_mfu.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_3a/iso14443_3a_render.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/iso14443_3b/nfc_cli_dump_iso14443_3b.c
+	CC	applications/main/nfc/cli/nfc_cli.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/mf_ultralight/nfc_cli_dump_mf_ultralight.c
+	CC	applications/main/nfc/cli/commands/dump/nfc_cli_command_dump.c
+	CC	applications/main/nfc/cli/commands/mfu/nfc_cli_action_wrbl.c
+	CC	applications/main/nfc/cli/commands/helpers/nfc_cli_protocol_parser.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/iso14443_4b/nfc_cli_dump_iso14443_4b.c
+	AR	build/f7-firmware-D/mbedtls/libmbedtls.a
+	CC	applications/main/nfc/cli/commands/nfc_cli_command_scanner.c
+	RANLIB	build/f7-firmware-D/mbedtls/libmbedtls.a
+	INSTALL	build/f7-firmware-D/lib/libmbedtls.a
+	LINK	build/f7-firmware-D/.extapps/disney_infinity_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/disney_infinity_parser.fal
+	FAP	build/f7-firmware-D/.extapps/disney_infinity_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/disney_infinity_parser.fal
+	CC	applications/main/nfc/cli/commands/dump/protocols/iso14443_4a/nfc_cli_dump_iso14443_4a.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/slix/nfc_cli_dump_slix.c
+	CC	applications/main/nfc/cli/commands/helpers/nfc_cli_format.c
+	CC	applications/main/nfc/cli/commands/helpers/nfc_cli_scanner.c
+	CC	applications/main/nfc/cli/commands/nfc_cli_command_field.c
+	CC	applications/main/nfc/cli/commands/apdu/protocol_handlers/iso14443_4b/nfc_cli_apdu_iso14443_4b.c
+	APPCHK	build/f7-firmware-D/.extapps/disney_infinity_parser.fal
+	CC	applications/main/nfc/cli/commands/apdu/protocol_handlers/iso15693_3/nfc_cli_apdu_iso15693_3.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/mf_plus/nfc_cli_dump_mf_plus.c
+	CC	applications/main/nfc/cli/commands/apdu/protocol_handlers/iso14443_4a/nfc_cli_apdu_iso14443_4a.c
+	CC	applications/main/nfc/cli/commands/mfu/nfc_cli_action_info.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/iso14443_3a/nfc_cli_dump_iso14443_3a.c
+	CC	applications/main/nfc/cli/nfc_cli_command_processor.c
+	CC	applications/main/nfc/cli/commands/raw/protocol_handlers/iso14443_3b/nfc_cli_raw_iso14443_3b.c
+	CC	applications/main/nfc/helpers/mf_classic_key_cache.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/felica/nfc_cli_dump_felica.c
+	CC	applications/main/nfc/cli/commands/apdu/nfc_cli_command_apdu.c
+	CC	applications/main/nfc/cli/commands/raw/protocol_handlers/iso15693_3/nfc_cli_raw_iso15693_3.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_ultralight/mf_ultralight_render.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/iso15693_3/nfc_cli_dump_iso15693_3.c
+	CC	applications/main/nfc/cli/commands/nfc_cli_command_emulate.c
+	CC	applications/main/nfc/cli/commands/raw/protocol_handlers/felica/nfc_cli_raw_felica.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/st25tb/nfc_cli_dump_st25tb.c
+	CC	applications/main/nfc/cli/commands/raw/nfc_cli_command_raw.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/mf_desfire/nfc_cli_dump_mf_desfire.c
+	CC	applications/main/nfc/cli/commands/dump/protocols/mf_classic/nfc_cli_dump_mf_classic.c
+	CC	applications/main/nfc/cli/nfc_cli_commands.c
+	CC	applications/main/nfc/cli/commands/raw/protocol_handlers/iso14443_3a/nfc_cli_raw_iso14443_3a.c
+	CC	applications/main/nfc/cli/commands/mfu/nfc_cli_action_rdbl.c
+	CC	applications/main/nfc/plugins/supported_cards/banapass.c
+	CC	applications/main/nfc/plugins/supported_cards/aic.c
+	CC	applications/main/onewire/onewire_cli.c
+	LINK	build/f7-firmware-D/.extapps/cli_nfc_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/cli_nfc.fal
+	FAP	build/f7-firmware-D/.extapps/cli_nfc.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_nfc.fal
+	LINK	build/f7-firmware-D/.extapps/banapass_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/banapass_parser.fal
+	FAP	build/f7-firmware-D/.extapps/banapass_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/banapass_parser.fal
+	LINK	build/f7-firmware-D/.extapps/aic_parser_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/aic_parser.fal
+	LINK	build/f7-firmware-D/.extapps/cli_onewire_d.elf
+	FAP	build/f7-firmware-D/.extapps/aic_parser.fal
+	FASTFAP	build/f7-firmware-D/.extapps/aic_parser.fal
+	APPMETA	build/f7-firmware-D/.extapps/cli_onewire.fal
+	FAP	build/f7-firmware-D/.extapps/cli_onewire.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_onewire.fal
+	APPCHK	build/f7-firmware-D/.extapps/banapass_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/cli_nfc.fal
+	CC	applications/main/subghz/helpers/subghz_chat.c
+	APPCHK	build/f7-firmware-D/.extapps/aic_parser.fal
+	APPCHK	build/f7-firmware-D/.extapps/cli_onewire.fal
+	CC	applications/main/subghz/subghz_cli.c
+	CC	applications/system/js_app/modules/js_event_loop/js_event_loop.c
+	CPP	applications/system/js_app/modules/js_event_loop/js_event_loop_api_table.cpp
+	CC	applications/system/js_app/modules/js_gui/js_gui.c
+	CPP	applications/system/js_app/modules/js_gui/js_gui_api_table.cpp
+	CC	applications/system/js_app/modules/js_gui/loading.c
+	LINK	build/f7-firmware-D/.extapps/cli_subghz_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/cli_subghz.fal
+	FAP	build/f7-firmware-D/.extapps/cli_subghz.fal
+	FASTFAP	build/f7-firmware-D/.extapps/cli_subghz.fal
+	LINK	build/f7-firmware-D/.extapps/js_gui__loading_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__loading.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__loading.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__loading.fal
+	APPCHK	build/f7-firmware-D/.extapps/cli_subghz.fal
+	CC	applications/system/js_app/modules/js_gui/empty_screen.c
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__loading.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__loading.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/submenu.c
+	LINK	build/f7-firmware-D/.extapps/js_event_loop_d.elf
+	LINK	build/f7-firmware-D/.extapps/js_gui__empty_screen_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__empty_screen.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_event_loop.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__empty_screen.fal
+	FAP	build/f7-firmware-D/.extapps/js_event_loop.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__empty_screen.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_event_loop.fal
+	LINK	build/f7-firmware-D/.extapps/js_gui__submenu_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__submenu.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__submenu.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__submenu.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_event_loop.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_event_loop.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_flags_wait'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__empty_screen.fal
+	LINK	build/f7-firmware-D/.extapps/js_gui_d.elf
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__empty_screen.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/text_input.c
+	APPMETA	build/f7-firmware-D/.extapps/js_gui.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__submenu.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__submenu.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/number_input.c
+	CC	applications/system/js_app/modules/js_gui/button_panel.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__text_input_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__text_input.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__text_input.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__text_input.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_event_loop_get_loop', 'js_value_buffer_size', 'js_value_parse', 'js_module_get'}
+	LINK	build/f7-firmware-D/.extapps/js_gui__number_input_d.elf
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/popup.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__button_panel_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__number_input.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__number_input.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__number_input.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__button_panel.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__button_panel.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__button_panel.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__text_input.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__text_input.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/button_menu.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__popup_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__popup.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__popup.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__popup.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__number_input.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__number_input.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__button_panel.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__button_panel.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_gui_make_view_factory', 'js_gui_font_declaration'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/menu.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__button_menu_d.elf
+	CC	applications/system/js_app/modules/js_gui/vi_list.c
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__button_menu.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__button_menu.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__button_menu.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__popup.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__popup.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/byte_input.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__menu_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__menu.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__menu.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__menu.fal
+	LINK	build/f7-firmware-D/.extapps/js_gui__vi_list_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__vi_list.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__vi_list.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__vi_list.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__button_menu.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__button_menu.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/text_box.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__byte_input_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__byte_input.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__byte_input.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__byte_input.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__menu.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__menu.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__vi_list.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__vi_list.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/dialog.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__text_box_d.elf
+	CC	applications/system/js_app/modules/js_gui/file_picker.c
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__byte_input.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__text_box.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__byte_input.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	FAP	build/f7-firmware-D/.extapps/js_gui__text_box.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__text_box.fal
+	CC	build/f7-firmware-D/assets/compiled/assets_icons.c
+	LINK	build/f7-firmware-D/.extapps/js_gui__dialog_d.elf
+	CC	build/f7-firmware-D/assets/compiled/application.pb.c
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__dialog.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__dialog.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__dialog.fal
+	CC	build/f7-firmware-D/assets/compiled/desktop.pb.c
+	CC	build/f7-firmware-D/assets/compiled/flipper.pb.c
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__text_box.fal
+	CC	build/f7-firmware-D/assets/compiled/gpio.pb.c
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__text_box.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+	CC	build/f7-firmware-D/assets/compiled/gui.pb.c
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	build/f7-firmware-D/assets/compiled/property.pb.c
+	CC	build/f7-firmware-D/assets/compiled/storage.pb.c
+	CC	build/f7-firmware-D/assets/compiled/system.pb.c
+	CC	build/f7-firmware-D/assets/compiled/assets_dolphin_blocking.c
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__dialog.fal
+	CC	build/f7-firmware-D/assets/compiled/assets_dolphin_internal.c
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__dialog.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_gui/widget.c
+	CC	applications/system/js_app/modules/js_gui/icon.c
+	CC	applications/system/js_app/modules/js_notification.c
+	AR	build/f7-firmware-D/assets/libassets.a
+	RANLIB	build/f7-firmware-D/assets/libassets.a
+	INSTALL	build/f7-firmware-D/lib/libassets.a
+	LINK	build/f7-firmware-D/.extapps/js_gui__file_picker_d.elf
+	LINK	build/f7-firmware-D/.extapps/js_notification_d.elf
+	LINK	build/f7-firmware-D/.extapps/js_gui__icon_d.elf
+	LINK	build/f7-firmware-D/.extapps/js_gui__widget_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_notification.fal
+	FAP	build/f7-firmware-D/.extapps/js_notification.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_notification.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__icon.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__icon.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__icon.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__widget.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__widget.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__widget.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_gui__file_picker.fal
+	FAP	build/f7-firmware-D/.extapps/js_gui__file_picker.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gui__file_picker.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__icon.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_notification.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__icon.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__widget.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__widget.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_gui_make_view_factory'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gui__file_picker.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gui__file_picker.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_badusb.c
+	CC	applications/system/js_app/modules/js_serial.c
+	CC	applications/system/js_app/modules/js_gpio.c
+	CC	applications/system/js_app/modules/js_math.c
+	LINK	build/f7-firmware-D/.extapps/js_badusb_d.elf
+	LINK	build/f7-firmware-D/.extapps/js_math_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_badusb.fal
+	FAP	build/f7-firmware-D/.extapps/js_badusb.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_badusb.fal
+	LINK	build/f7-firmware-D/.extapps/js_gpio_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_gpio.fal
+	FAP	build/f7-firmware-D/.extapps/js_gpio.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_gpio.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_badusb.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_badusb.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_delay_with_flags'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_gpio.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_gpio.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_event_loop_get_loop', 'js_value_buffer_size', 'js_value_parse', 'js_module_get'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/system/js_app/modules/js_storage.c
+	CC	applications/debug/unit_tests/tests/common/common.c
+	LINK	build/f7-firmware-D/.extapps/js_serial_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/js_math.fal
+	FAP	build/f7-firmware-D/.extapps/js_math.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_math.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_serial.fal
+	FAP	build/f7-firmware-D/.extapps/js_serial.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_serial.fal
+	CC	applications/debug/unit_tests/tests/js/js_test.c
+	APPCHK	build/f7-firmware-D/.extapps/js_serial.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/js_serial.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse', 'js_flags_wait', 'js_flags_set'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/js_math.fal
+	LINK	build/f7-firmware-D/.extapps/js_storage_d.elf
+	CC	applications/examples/example_plugins/plugin1.c
+	CC	applications/examples/example_plugins/plugin2.c
+	LINK	build/f7-firmware-D/.extapps/test_js_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/test_js.fal
+	LINK	build/f7-firmware-D/.extapps/example_plugin1_d.elf
+	FAP	build/f7-firmware-D/.extapps/test_js.fal
+	FASTFAP	build/f7-firmware-D/.extapps/test_js.fal
+	LINK	build/f7-firmware-D/.extapps/example_plugin2_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/example_plugin1.fal
+	FAP	build/f7-firmware-D/.extapps/example_plugin1.fal
+	FASTFAP	build/f7-firmware-D/.extapps/example_plugin1.fal
+	APPCHK	build/f7-firmware-D/.extapps/example_plugin1.fal
+	APPCHK	build/f7-firmware-D/.extapps/advanced_plugin1.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/advanced_plugin1.fal: app may not be runnable. Symbols not resolved using firmware's API: {'app_api_accumulator_get', 'app_api_accumulator_add'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	APPCHK	build/f7-firmware-D/.extapps/advanced_plugin2.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/advanced_plugin2.fal: app may not be runnable. Symbols not resolved using firmware's API: {'app_api_accumulator_get', 'app_api_accumulator_mul'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/drivers/subghz/cc1101_ext/cc1101_ext.c
+	APPMETA	build/f7-firmware-D/.extapps/example_plugin2.fal
+	FAP	build/f7-firmware-D/.extapps/example_plugin2.fal
+	APPMETA	build/f7-firmware-D/.extapps/js_storage.fal
+	FAP	build/f7-firmware-D/.extapps/js_storage.fal
+	FASTFAP	build/f7-firmware-D/.extapps/example_plugin2.fal
+	FASTFAP	build/f7-firmware-D/.extapps/js_storage.fal
+	APPCHK	build/f7-firmware-D/.extapps/test_js.fal
+
+fbt: warning: build/f7-firmware-D/.extapps/test_js.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_thread_stop', 'js_thread_run', 'js_value_buffer_size', 'js_value_parse'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.c
+	APPCHK	build/f7-firmware-D/.extapps/example_plugin2.fal
+	APPCHK	build/f7-firmware-D/.extapps/js_storage.fal
+	CC	lib/drivers/bq25896.c
+
+fbt: warning: build/f7-firmware-D/.extapps/js_storage.fal: app may not be runnable. Symbols not resolved using firmware's API: {'js_value_buffer_size', 'js_value_parse'}
+_validate_app_imports, line 307, in file "/tmp/flipperzero-firmware/scripts/fbt_tools/fbt_extapps.py"
+	CC	lib/drivers/bq27220.c
+	CC	lib/drivers/cc1101.c
+	CC	lib/drivers/lp5562.c
+	CC	lib/drivers/st25r3916.c
+	CC	lib/drivers/st25r3916_reg.c
+	CPP	applications/debug/accessor/helpers/wiegand.cpp
+	CPP	applications/debug/accessor/scene/accessor_scene_start.cpp
+	CPP	applications/debug/accessor/accessor.cpp
+	AR	build/f7-firmware-D/drivers/libhwdrivers.a
+	RANLIB	build/f7-firmware-D/drivers/libhwdrivers.a
+	INSTALL	build/f7-firmware-D/lib/libhwdrivers.a
+	LINK	build/f7-firmware-D/.extapps/radio_device_cc1101_ext_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/radio_device_cc1101_ext.fal
+	FAP	build/f7-firmware-D/.extapps/radio_device_cc1101_ext.fal
+	FASTFAP	build/f7-firmware-D/.extapps/radio_device_cc1101_ext.fal
+	APPCHK	build/f7-firmware-D/.extapps/radio_device_cc1101_ext.fal
+	CPP	applications/debug/accessor/accessor_app.cpp
+	CPP	applications/debug/accessor/accessor_view_manager.cpp
+	CC	applications/debug/battery_test_app/views/battery_info.c
+	CC	applications/debug/battery_test_app/battery_test_app.c
+	LINK	build/f7-firmware-D/.extapps/battery_test_d.elf
+	CC	applications/debug/blink_test/blink_test.c
+	APPMETA	build/f7-firmware-D/.extapps/battery_test.fap
+	FAP	build/f7-firmware-D/.extapps/battery_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/battery_test.fap
+	LINK	build/f7-firmware-D/.extapps/blink_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/blink_test.fap
+	FAP	build/f7-firmware-D/.extapps/blink_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/blink_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/battery_test.fap
+	CC	applications/debug/bt_debug_app/views/bt_carrier_test.c
+	CC	applications/debug/bt_debug_app/views/bt_packet_test.c
+	APPCHK	build/f7-firmware-D/.extapps/blink_test.fap
+	CC	applications/debug/bt_debug_app/views/bt_test.c
+	CC	applications/debug/bt_debug_app/bt_debug_app.c
+	CC	applications/debug/ccid_test/iso7816/iso7816_handler.c
+	LINK	build/f7-firmware-D/.extapps/accessor_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/accessor.fap
+	FAP	build/f7-firmware-D/.extapps/accessor.fap
+	FASTFAP	build/f7-firmware-D/.extapps/accessor.fap
+	CC	applications/debug/ccid_test/iso7816/iso7816_response.c
+	CC	applications/debug/ccid_test/iso7816/iso7816_t0_apdu.c
+	CC	applications/debug/ccid_test/ccid_test_app.c
+	CC	applications/debug/ccid_test/ccid_test_app_commands.c
+	CC	applications/debug/crash_test/crash_test.c
+	LINK	build/f7-firmware-D/.extapps/ccid_test_d.elf
+	LINK	build/f7-firmware-D/.extapps/bt_debug_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/bt_debug.fap
+	FAP	build/f7-firmware-D/.extapps/bt_debug.fap
+	FASTFAP	build/f7-firmware-D/.extapps/bt_debug.fap
+	LINK	build/f7-firmware-D/.extapps/crash_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/crash_test.fap
+	FAP	build/f7-firmware-D/.extapps/crash_test.fap
+	APPMETA	build/f7-firmware-D/.extapps/ccid_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/crash_test.fap
+	FAP	build/f7-firmware-D/.extapps/ccid_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/ccid_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/bt_debug.fap
+	CC	applications/debug/direct_draw/direct_draw.c
+	APPCHK	build/f7-firmware-D/.extapps/ccid_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/crash_test.fap
+	CC	applications/debug/display_test/display_test.c
+	LINK	build/f7-firmware-D/.extapps/direct_draw_d.elf
+	CC	applications/debug/display_test/view_display_test.c
+	APPMETA	build/f7-firmware-D/.extapps/direct_draw.fap
+	FAP	build/f7-firmware-D/.extapps/direct_draw.fap
+	FASTFAP	build/f7-firmware-D/.extapps/direct_draw.fap
+	CC	lib/u8g2/u8g2_bitmap.c
+	APPCHK	build/f7-firmware-D/.extapps/direct_draw.fap
+	CC	lib/u8g2/u8g2_box.c
+	CC	lib/u8g2/u8g2_buffer.c
+	APPCHK	build/f7-firmware-D/.extapps/accessor.fap
+	CC	lib/u8g2/u8g2_circle.c
+	CC	lib/u8g2/u8g2_d_memory.c
+	CC	lib/u8g2/u8g2_font.c
+	CC	lib/u8g2/u8g2_fonts.c
+	CC	lib/u8g2/u8g2_glue.c
+	CC	lib/u8g2/u8g2_hvline.c
+	CC	lib/u8g2/u8g2_intersection.c
+	CC	lib/u8g2/u8g2_line.c
+	CC	lib/u8g2/u8g2_ll_hvline.c
+	CC	lib/u8g2/u8g2_setup.c
+	CC	lib/u8g2/u8x8_8x8.c
+	CC	lib/u8g2/u8x8_byte.c
+	CC	lib/u8g2/u8x8_cad.c
+	CC	lib/u8g2/u8x8_display.c
+	CC	lib/u8g2/u8x8_gpio.c
+	CC	lib/u8g2/u8x8_setup.c
+	CC	applications/debug/event_loop_blink_test/event_loop_blink_test.c
+	CC	applications/debug/expansion_test/expansion_test.c
+	CC	applications/debug/file_browser_test/scenes/file_browser_scene.c
+	CC	applications/debug/file_browser_test/scenes/file_browser_scene_browser.c
+	LINK	build/f7-firmware-D/.extapps/event_loop_blink_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/event_loop_blink_test.fap
+	FAP	build/f7-firmware-D/.extapps/event_loop_blink_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/event_loop_blink_test.fap
+	CC	applications/debug/file_browser_test/scenes/file_browser_scene_result.c
+	LINK	build/f7-firmware-D/.extapps/expansion_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/expansion_test.fap
+	APPFILE	build/f7-firmware-D/.extapps/expansion_test.fap
+	FAP	build/f7-firmware-D/.extapps/expansion_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/expansion_test.fap
+	CC	applications/debug/file_browser_test/scenes/file_browser_scene_start.c
+	APPCHK	build/f7-firmware-D/.extapps/event_loop_blink_test.fap
+	ICONS	build/f7-firmware-D/.extapps/file_browser_test/file_browser_test_icons.c
+	APPCHK	build/f7-firmware-D/.extapps/expansion_test.fap
+	CC	applications/debug/infrared_test/infrared_test.c
+	CC	applications/debug/keypad_test/keypad_test.c
+	CC	build/f7-firmware-D/.extapps/file_browser_test/file_browser_test_icons.c
+	CC	applications/debug/file_browser_test/file_browser_app.c
+	LINK	build/f7-firmware-D/.extapps/infrared_test_d.elf
+	LINK	build/f7-firmware-D/.extapps/file_browser_test_d.elf
+	LINK	build/f7-firmware-D/.extapps/keypad_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/file_browser_test.fap
+	APPMETA	build/f7-firmware-D/.extapps/infrared_test.fap
+	FAP	build/f7-firmware-D/.extapps/file_browser_test.fap
+	FAP	build/f7-firmware-D/.extapps/infrared_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/file_browser_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/infrared_test.fap
+	APPMETA	build/f7-firmware-D/.extapps/keypad_test.fap
+	FAP	build/f7-firmware-D/.extapps/keypad_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/keypad_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/infrared_test.fap
+	CC	applications/debug/lfrfid_debug/scenes/lfrfid_debug_app_scene_start.c
+	APPCHK	build/f7-firmware-D/.extapps/keypad_test.fap
+	CC	applications/debug/lfrfid_debug/scenes/lfrfid_debug_app_scene_tune.c
+	AR	build/f7-firmware-D/u8g2/libu8g2.a
+	CC	applications/debug/lfrfid_debug/scenes/lfrfid_debug_scene.c
+	CC	applications/debug/lfrfid_debug/views/lfrfid_debug_view_tune.c
+	APPCHK	build/f7-firmware-D/.extapps/file_browser_test.fap
+	RANLIB	build/f7-firmware-D/u8g2/libu8g2.a
+	CC	applications/debug/lfrfid_debug/lfrfid_debug.c
+	CC	applications/debug/loader_chaining_a/loader_chaining_a.c
+	CC	applications/debug/loader_chaining_b/loader_chaining_b.c
+	INSTALL	build/f7-firmware-D/lib/libu8g2.a
+	LINK	build/f7-firmware-D/.extapps/display_test_d.elf
+	LINK	build/f7-firmware-D/.extapps/loader_chaining_a_d.elf
+	LINK	build/f7-firmware-D/.extapps/lfrfid_debug_d.elf
+	LINK	build/f7-firmware-D/.extapps/loader_chaining_b_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/display_test.fap
+	FAP	build/f7-firmware-D/.extapps/display_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/display_test.fap
+	APPMETA	build/f7-firmware-D/.extapps/loader_chaining_a.fap
+	APPMETA	build/f7-firmware-D/.extapps/lfrfid_debug.fap
+	FAP	build/f7-firmware-D/.extapps/loader_chaining_a.fap
+	FAP	build/f7-firmware-D/.extapps/lfrfid_debug.fap
+	APPMETA	build/f7-firmware-D/.extapps/loader_chaining_b.fap
+	FAP	build/f7-firmware-D/.extapps/loader_chaining_b.fap
+	FASTFAP	build/f7-firmware-D/.extapps/loader_chaining_a.fap
+	FASTFAP	build/f7-firmware-D/.extapps/lfrfid_debug.fap
+	FASTFAP	build/f7-firmware-D/.extapps/loader_chaining_b.fap
+	APPCHK	build/f7-firmware-D/.extapps/loader_chaining_b.fap
+	APPCHK	build/f7-firmware-D/.extapps/display_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/lfrfid_debug.fap
+	APPCHK	build/f7-firmware-D/.extapps/loader_chaining_a.fap
+	CC	applications/debug/locale_test/locale_test.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_input_data_exchange.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_input_error_code.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_input_error_text.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_receive_data_exchange.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_start.c
+	LINK	build/f7-firmware-D/.extapps/locale_test_d.elf
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_start_dummy.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_test_app_error.c
+	CC	applications/debug/rpc_debug_app/scenes/rpc_debug_app_scene_test_data_exchange.c
+	APPMETA	build/f7-firmware-D/.extapps/locale_test.fap
+	FAP	build/f7-firmware-D/.extapps/locale_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/locale_test.fap
+	CC	applications/debug/rpc_debug_app/rpc_debug_app.c
+	CC	applications/debug/speaker_debug/speaker_debug.c
+	CC	lib/music_worker/music_worker.c
+	LINK	build/f7-firmware-D/.extapps/rpc_debug_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/locale_test.fap
+	CC	applications/debug/subghz_test/helpers/subghz_test_frequency.c
+	APPMETA	build/f7-firmware-D/.extapps/rpc_debug.fap
+	FAP	build/f7-firmware-D/.extapps/rpc_debug.fap
+	CC	applications/debug/subghz_test/protocol/math.c
+	FASTFAP	build/f7-firmware-D/.extapps/rpc_debug.fap
+	CC	applications/debug/subghz_test/protocol/princeton_for_testing.c
+	AR	build/f7-firmware-D/music_worker/libmusic_worker.a
+	RANLIB	build/f7-firmware-D/music_worker/libmusic_worker.a
+	INSTALL	build/f7-firmware-D/lib/libmusic_worker.a
+	LINK	build/f7-firmware-D/.extapps/speaker_debug_d.elf
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene.c
+	APPCHK	build/f7-firmware-D/.extapps/rpc_debug.fap
+	APPMETA	build/f7-firmware-D/.extapps/speaker_debug.fap
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_about.c
+	FAP	build/f7-firmware-D/.extapps/speaker_debug.fap
+	FASTFAP	build/f7-firmware-D/.extapps/speaker_debug.fap
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_carrier.c
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_packet.c
+	ICONS	build/f7-firmware-D/.extapps/subghz_test/subghz_test_icons.c
+	APPCHK	build/f7-firmware-D/.extapps/speaker_debug.fap
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_start.c
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_static.c
+	CC	applications/debug/subghz_test/views/subghz_test_carrier.c
+	CC	applications/debug/subghz_test/scenes/subghz_test_scene_show_only_rx.c
+	CC	applications/debug/subghz_test/views/subghz_test_packet.c
+	CC	applications/debug/subghz_test/views/subghz_test_static.c
+	CC	applications/debug/subghz_test/subghz_test_app.c
+	CC	applications/debug/subghz_test/subghz_test_app_i.c
+	CC	build/f7-firmware-D/.extapps/subghz_test/subghz_test_icons.c
+	CC	applications/debug/text_box_element_test/text_box_element_test.c
+	CC	applications/debug/text_box_view_test/text_box_view_test.c
+	LINK	build/f7-firmware-D/.extapps/subghz_test_d.elf
+	CC	applications/debug/uart_echo/uart_echo.c
+	APPMETA	build/f7-firmware-D/.extapps/subghz_test.fap
+	FAP	build/f7-firmware-D/.extapps/subghz_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/subghz_test.fap
+	LINK	build/f7-firmware-D/.extapps/text_box_element_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/text_box_element_test.fap
+	FAP	build/f7-firmware-D/.extapps/text_box_element_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/text_box_element_test.fap
+	LINK	build/f7-firmware-D/.extapps/text_box_view_test_d.elf
+	APPCHK	build/f7-firmware-D/.extapps/subghz_test.fap
+	APPCHK	build/f7-firmware-D/.extapps/text_box_element_test.fap
+	LINK	build/f7-firmware-D/.extapps/uart_echo_d.elf
+	CC	applications/debug/usb_mouse/usb_mouse.c
+	APPMETA	build/f7-firmware-D/.extapps/uart_echo.fap
+	APPMETA	build/f7-firmware-D/.extapps/text_box_view_test.fap
+	FAP	build/f7-firmware-D/.extapps/uart_echo.fap
+	FAP	build/f7-firmware-D/.extapps/text_box_view_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/uart_echo.fap
+	FASTFAP	build/f7-firmware-D/.extapps/text_box_view_test.fap
+	CC	applications/debug/usb_test/usb_test.c
+	LINK	build/f7-firmware-D/.extapps/usb_mouse_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/usb_mouse.fap
+	FAP	build/f7-firmware-D/.extapps/usb_mouse.fap
+	FASTFAP	build/f7-firmware-D/.extapps/usb_mouse.fap
+	APPCHK	build/f7-firmware-D/.extapps/uart_echo.fap
+	APPCHK	build/f7-firmware-D/.extapps/text_box_view_test.fap
+	LINK	build/f7-firmware-D/.extapps/usb_test_d.elf
+	CC	applications/debug/vibro_test/vibro_test.c
+	CC	applications/main/subghz/helpers/subghz_chat.c
+	APPCHK	build/f7-firmware-D/.extapps/usb_mouse.fap
+	CC	applications/main/subghz/helpers/subghz_frequency_analyzer_log_item_array.c
+	LINK	build/f7-firmware-D/.extapps/vibro_test_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/vibro_test.fap
+	FAP	build/f7-firmware-D/.extapps/vibro_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/vibro_test.fap
+	APPMETA	build/f7-firmware-D/.extapps/usb_test.fap
+	FAP	build/f7-firmware-D/.extapps/usb_test.fap
+	FASTFAP	build/f7-firmware-D/.extapps/usb_test.fap
+	CC	applications/main/subghz/helpers/subghz_frequency_analyzer_worker.c
+	APPCHK	build/f7-firmware-D/.extapps/vibro_test.fap
+	CC	applications/main/subghz/helpers/subghz_threshold_rssi.c
+	APPCHK	build/f7-firmware-D/.extapps/usb_test.fap
+	CC	applications/main/subghz/helpers/subghz_txrx.c
+	CC	applications/main/subghz/helpers/subghz_txrx_create_protocol_key.c
+	CC	applications/main/subghz/scenes/subghz_scene.c
+	CC	applications/main/subghz/scenes/subghz_scene_delete.c
+	CC	applications/main/subghz/scenes/subghz_scene_delete_raw.c
+	CC	applications/main/subghz/scenes/subghz_scene_delete_success.c
+	CC	applications/main/subghz/scenes/subghz_scene_frequency_analyzer.c
+	CC	applications/main/subghz/scenes/subghz_scene_more_raw.c
+	CC	applications/main/subghz/scenes/subghz_scene_need_saving.c
+	CC	applications/main/subghz/scenes/subghz_scene_radio_setting.c
+	CC	applications/main/subghz/scenes/subghz_scene_read_raw.c
+	CC	applications/main/subghz/scenes/subghz_scene_receiver.c
+	CC	applications/main/subghz/scenes/subghz_scene_receiver_config.c
+	CC	applications/main/subghz/scenes/subghz_scene_receiver_info.c
+	CC	applications/main/subghz/scenes/subghz_scene_region_info.c
+	CC	applications/main/subghz/scenes/subghz_scene_rpc.c
+	CC	applications/main/subghz/scenes/subghz_scene_save_name.c
+	CC	applications/main/subghz/scenes/subghz_scene_save_success.c
+	CC	applications/main/subghz/scenes/subghz_scene_saved.c
+	CC	applications/main/subghz/scenes/subghz_scene_saved_menu.c
+	CC	applications/main/subghz/scenes/subghz_scene_set_type.c
+	CC	applications/main/subghz/scenes/subghz_scene_show_error.c
+	CC	applications/main/subghz/scenes/subghz_scene_show_error_sub.c
+	CC	applications/main/subghz/scenes/subghz_scene_start.c
+	CC	applications/main/subghz/scenes/subghz_scene_transmitter.c
+	CC	applications/main/subghz/views/receiver.c
+	CC	applications/main/subghz/views/subghz_frequency_analyzer.c
+	CC	applications/main/subghz/views/subghz_read_raw.c
+	CC	applications/main/subghz/views/transmitter.c
+	CC	applications/main/subghz/subghz.c
+	CC	applications/main/subghz/subghz_history.c
+	CC	applications/main/subghz/subghz_i.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_delete_confirm.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_delete_success.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_emulate.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_exit_confirm.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_extra_actions.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_raw_info.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_raw_name.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_raw_read.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_raw_success.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_read.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_read_key_menu.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_read_success.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_retry_confirm.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_rpc.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_save_data.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_save_name.c
+	LINK	build/f7-firmware-D/.extapps/subghz_d.elf
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_save_success.c
+	APPMETA	build/f7-firmware-D/.extapps/subghz.fap
+	FAP	build/f7-firmware-D/.extapps/subghz.fap
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_save_type.c
+	FASTFAP	build/f7-firmware-D/.extapps/subghz.fap
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_saved_info.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_saved_key_menu.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_select_key.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_start.c
+	APPCHK	build/f7-firmware-D/.extapps/subghz.fap
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_write.c
+	CC	applications/main/lfrfid/scenes/lfrfid_scene_write_success.c
+	CC	applications/main/lfrfid/views/lfrfid_view_read.c
+	CC	applications/main/lfrfid/lfrfid.c
+	CC	applications/main/lfrfid/lfrfid_cli.c
+	CC	applications/main/nfc/api/gallagher/gallagher_util.c
+	CC	applications/main/nfc/api/mosgortrans/mosgortrans_util.c
+	CPP	applications/main/nfc/api/nfc_app_api_table.cpp
+	CC	applications/main/nfc/helpers/protocol_support/felica/felica.c
+	LINK	build/f7-firmware-D/.extapps/lfrfid_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/lfrfid.fap
+	FAP	build/f7-firmware-D/.extapps/lfrfid.fap
+	FASTFAP	build/f7-firmware-D/.extapps/lfrfid.fap
+	CC	applications/main/nfc/helpers/protocol_support/felica/felica_render.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_3a/iso14443_3a.c
+	APPCHK	build/f7-firmware-D/.extapps/lfrfid.fap
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_3a/iso14443_3a_render.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_3b/iso14443_3b.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_3b/iso14443_3b_render.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_4a/iso14443_4a.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_4a/iso14443_4a_render.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_4b/iso14443_4b.c
+	CC	applications/main/nfc/helpers/protocol_support/iso14443_4b/iso14443_4b_render.c
+	CC	applications/main/nfc/helpers/protocol_support/iso15693_3/iso15693_3.c
+	CC	applications/main/nfc/helpers/protocol_support/iso15693_3/iso15693_3_render.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_classic/mf_classic.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_classic/mf_classic_render.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_desfire/mf_desfire.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_desfire/mf_desfire_render.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_plus/mf_plus.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_plus/mf_plus_render.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_ultralight/mf_ultralight.c
+	CC	applications/main/nfc/helpers/protocol_support/mf_ultralight/mf_ultralight_render.c
+	CC	applications/main/nfc/helpers/protocol_support/slix/slix.c
+	CC	applications/main/nfc/helpers/protocol_support/slix/slix_render.c
+	CC	applications/main/nfc/helpers/protocol_support/st25tb/st25tb.c
+	CC	applications/main/nfc/helpers/protocol_support/st25tb/st25tb_render.c
+	CC	applications/main/nfc/helpers/protocol_support/nfc_protocol_support.c
+	CC	applications/main/nfc/helpers/protocol_support/nfc_protocol_support_defs.c
+	CC	applications/main/nfc/helpers/protocol_support/nfc_protocol_support_gui_common.c
+	CC	applications/main/nfc/helpers/protocol_support/nfc_protocol_support_unlock_helper.c
+	CC	applications/main/nfc/helpers/felica_auth.c
+	CC	applications/main/nfc/helpers/mf_classic_key_cache.c
+	CC	applications/main/nfc/helpers/mf_ultralight_auth.c
+	CC	applications/main/nfc/helpers/mf_user_dict.c
+	CC	applications/main/nfc/helpers/mfkey32_logger.c
+	CC	applications/main/nfc/helpers/nfc_detected_protocols.c
+	CC	applications/main/nfc/helpers/nfc_emv_parser.c
+	CC	applications/main/nfc/helpers/nfc_supported_cards.c
+	CC	applications/main/nfc/helpers/slix_unlock.c
+	CC	applications/main/nfc/scenes/nfc_scene.c
+	CC	applications/main/nfc/scenes/nfc_scene_debug.c
+	CC	applications/main/nfc/scenes/nfc_scene_delete.c
+	CC	applications/main/nfc/scenes/nfc_scene_delete_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_des_auth_key_input.c
+	CC	applications/main/nfc/scenes/nfc_scene_des_auth_unlock_warn.c
+	CC	applications/main/nfc/scenes/nfc_scene_detect.c
+	CC	applications/main/nfc/scenes/nfc_scene_emulate.c
+	CC	applications/main/nfc/scenes/nfc_scene_exit_confirm.c
+	CC	applications/main/nfc/scenes/nfc_scene_extra_actions.c
+	CC	applications/main/nfc/scenes/nfc_scene_felica_more_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_felica_system.c
+	CC	applications/main/nfc/scenes/nfc_scene_field.c
+	CC	applications/main/nfc/scenes/nfc_scene_file_select.c
+	CC	applications/main/nfc/scenes/nfc_scene_generate_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_detect_reader.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_dict_attack.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_keys.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_keys_add.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_keys_delete.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_keys_list.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_keys_warn_duplicate.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_mfkey_complete.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_mfkey_nonces_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_update_initial.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_update_initial_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_update_initial_wrong_card.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_write_initial.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_write_initial_fail.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_write_initial_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_classic_write_initial_wrong_card.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_desfire_app.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_desfire_more_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_dict_attack.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_keys.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_keys_add.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_keys_delete.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_keys_list.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_c_keys_warn_duplicate.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_capture_pass.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_key_input.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_unlock_menu.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_unlock_warn.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_write.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_write_fail.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_write_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_mf_ultralight_wrong_card.c
+	CC	applications/main/nfc/scenes/nfc_scene_more_info.c
+	CC	applications/main/nfc/scenes/nfc_scene_read.c
+	CC	applications/main/nfc/scenes/nfc_scene_read_menu.c
+	CC	applications/main/nfc/scenes/nfc_scene_read_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_restore_original.c
+	CC	applications/main/nfc/scenes/nfc_scene_restore_original_confirm.c
+	CC	applications/main/nfc/scenes/nfc_scene_retry_confirm.c
+	CC	applications/main/nfc/scenes/nfc_scene_rpc.c
+	CC	applications/main/nfc/scenes/nfc_scene_save_confirm.c
+	CC	applications/main/nfc/scenes/nfc_scene_save_name.c
+	CC	applications/main/nfc/scenes/nfc_scene_save_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_saved_menu.c
+	CC	applications/main/nfc/scenes/nfc_scene_select_protocol.c
+	CC	applications/main/nfc/scenes/nfc_scene_set_atqa.c
+	CC	applications/main/nfc/scenes/nfc_scene_set_sak.c
+	CC	applications/main/nfc/scenes/nfc_scene_set_type.c
+	CC	applications/main/nfc/scenes/nfc_scene_set_uid.c
+	CC	applications/main/nfc/scenes/nfc_scene_slix_key_input.c
+	CC	applications/main/nfc/scenes/nfc_scene_slix_unlock.c
+	CC	applications/main/nfc/scenes/nfc_scene_slix_unlock_menu.c
+	CC	applications/main/nfc/scenes/nfc_scene_slix_unlock_success.c
+	CC	applications/main/nfc/scenes/nfc_scene_start.c
+	CC	applications/main/nfc/scenes/nfc_scene_supported_card.c
+	CC	applications/main/nfc/views/detect_reader.c
+	CC	applications/main/nfc/views/dict_attack.c
+	CC	applications/main/nfc/nfc_app.c
+	CC	applications/main/infrared/scenes/common/infrared_scene_universal_common.c
+	CC	applications/main/infrared/scenes/infrared_scene.c
+	CC	applications/main/infrared/scenes/infrared_scene_ask_back.c
+	CC	applications/main/infrared/scenes/infrared_scene_ask_retry.c
+	CC	applications/main/infrared/scenes/infrared_scene_debug.c
+	LINK	build/f7-firmware-D/.extapps/nfc_d.elf
+	CC	applications/main/infrared/scenes/infrared_scene_edit.c
+	CC	applications/main/infrared/scenes/infrared_scene_edit_button_select.c
+	APPMETA	build/f7-firmware-D/.extapps/nfc.fap
+	CC	applications/main/infrared/scenes/infrared_scene_edit_delete.c
+	FAP	build/f7-firmware-D/.extapps/nfc.fap
+	FASTFAP	build/f7-firmware-D/.extapps/nfc.fap
+	CC	applications/main/infrared/scenes/infrared_scene_edit_delete_done.c
+	CC	applications/main/infrared/scenes/infrared_scene_edit_move.c
+	CC	applications/main/infrared/scenes/infrared_scene_edit_rename.c
+	CC	applications/main/infrared/scenes/infrared_scene_edit_rename_done.c
+	CC	applications/main/infrared/scenes/infrared_scene_error_databases.c
+	CC	applications/main/infrared/scenes/infrared_scene_gpio_settings.c
+	CC	applications/main/infrared/scenes/infrared_scene_learn.c
+	CC	applications/main/infrared/scenes/infrared_scene_learn_done.c
+	APPCHK	build/f7-firmware-D/.extapps/nfc.fap
+	CC	applications/main/infrared/scenes/infrared_scene_learn_enter_name.c
+	CC	applications/main/infrared/scenes/infrared_scene_learn_success.c
+	CC	applications/main/infrared/scenes/infrared_scene_remote.c
+	CC	applications/main/infrared/scenes/infrared_scene_remote_list.c
+	CC	applications/main/infrared/scenes/infrared_scene_rpc.c
+	CC	applications/main/infrared/scenes/infrared_scene_start.c
+	CC	applications/main/infrared/scenes/infrared_scene_universal.c
+	CC	applications/main/infrared/scenes/infrared_scene_universal_ac.c
+	CC	applications/main/infrared/scenes/infrared_scene_universal_audio.c
+	CC	applications/main/infrared/scenes/infrared_scene_universal_projector.c
+	CC	applications/main/infrared/scenes/infrared_scene_universal_tv.c
+	CC	applications/main/infrared/views/infrared_debug_view.c
+	CC	applications/main/infrared/views/infrared_move_view.c
+	CC	applications/main/infrared/views/infrared_progress_view.c
+	CC	applications/main/infrared/infrared_app.c
+	CC	applications/main/infrared/infrared_remote.c
+	CC	applications/main/gpio/scenes/gpio_scene.c
+	CC	applications/main/gpio/scenes/gpio_scene_start.c
+	CC	applications/main/gpio/scenes/gpio_scene_test.c
+	CC	applications/main/gpio/scenes/gpio_scene_usb_uart.c
+	CC	applications/main/gpio/scenes/gpio_scene_usb_uart_close_rpc.c
+	CC	applications/main/gpio/scenes/gpio_scene_usb_uart_config.c
+	LINK	build/f7-firmware-D/.extapps/infrared_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/infrared.fap
+	CC	applications/main/gpio/views/gpio_test.c
+	FAP	build/f7-firmware-D/.extapps/infrared.fap
+	FASTFAP	build/f7-firmware-D/.extapps/infrared.fap
+	CC	applications/main/gpio/views/gpio_usb_uart.c
+	CC	applications/main/gpio/gpio_app.c
+	CC	applications/main/gpio/gpio_items.c
+	CC	applications/main/gpio/usb_uart_bridge.c
+	CC	applications/main/ibutton/scenes/ibutton_scene.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_add_type.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_add_value.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_delete_confirm.c
+	APPCHK	build/f7-firmware-D/.extapps/infrared.fap
+	CC	applications/main/ibutton/scenes/ibutton_scene_delete_success.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_emulate.c
+	LINK	build/f7-firmware-D/.extapps/gpio_d.elf
+	CC	applications/main/ibutton/scenes/ibutton_scene_exit_confirm.c
+	APPMETA	build/f7-firmware-D/.extapps/gpio.fap
+	FAP	build/f7-firmware-D/.extapps/gpio.fap
+	FASTFAP	build/f7-firmware-D/.extapps/gpio.fap
+	CC	applications/main/ibutton/scenes/ibutton_scene_info.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_read.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_read_error.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_read_key_menu.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_read_success.c
+	APPCHK	build/f7-firmware-D/.extapps/gpio.fap
+	CC	applications/main/ibutton/scenes/ibutton_scene_retry_confirm.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_rpc.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_save_name.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_save_success.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_saved_key_menu.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_select_key.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_start.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_view_data.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_write.c
+	CC	applications/main/ibutton/scenes/ibutton_scene_write_success.c
+	CC	applications/main/ibutton/ibutton.c
+	CC	applications/main/ibutton/ibutton_cli.c
+	CC	applications/main/bad_usb/helpers/bad_usb_hid.c
+	CC	applications/main/bad_usb/helpers/ducky_script.c
+	CC	applications/main/bad_usb/helpers/ducky_script_commands.c
+	LINK	build/f7-firmware-D/.extapps/ibutton_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/ibutton.fap
+	FAP	build/f7-firmware-D/.extapps/ibutton.fap
+	FASTFAP	build/f7-firmware-D/.extapps/ibutton.fap
+	CC	applications/main/bad_usb/helpers/ducky_script_keycodes.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_config.c
+	APPCHK	build/f7-firmware-D/.extapps/ibutton.fap
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_config_layout.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_confirm_unpair.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_error.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_file_select.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_unpair_done.c
+	CC	applications/main/bad_usb/scenes/bad_usb_scene_work.c
+	CC	applications/main/bad_usb/views/bad_usb_view.c
+	CC	applications/main/bad_usb/bad_usb_app.c
+	CC	applications/main/u2f/scenes/u2f_scene.c
+	CC	applications/main/u2f/scenes/u2f_scene_error.c
+	CC	applications/main/u2f/scenes/u2f_scene_main.c
+	CC	applications/main/u2f/views/u2f_view.c
+	LINK	build/f7-firmware-D/.extapps/bad_usb_d.elf
+	CC	applications/main/u2f/u2f.c
+	CC	applications/main/u2f/u2f_app.c
+	CC	applications/main/u2f/u2f_data.c
+	CC	applications/main/u2f/u2f_hid.c
+	APPMETA	build/f7-firmware-D/.extapps/bad_usb.fap
+	FAP	build/f7-firmware-D/.extapps/bad_usb.fap
+	FASTFAP	build/f7-firmware-D/.extapps/bad_usb.fap
+	LINK	build/f7-firmware-D/.extapps/u2f_d.elf
+	APPMETA	build/f7-firmware-D/.extapps/u2f.fap
+	FAP	build/f7-firmware-D/.extapps/u2f.fap
+	FASTFAP	build/f7-firmware-D/.extapps/u2f.fap
+	APPCHK	build/f7-firmware-D/.extapps/bad_usb.fap
+	APPCHK	build/f7-firmware-D/.extapps/u2f.fap
+
+=== Build completed. Checking for FAP file ===
+=== Looking in build/f7-firmware-D/.extapps/ ===
+cpp_ide.fap not found in extapps
+
+=== All FAP files in build directory ===
+build/f7-firmware-D/.extapps/rpc_debug.fap
+build/f7-firmware-D/.extapps/subghz_test.fap
+build/f7-firmware-D/.extapps/example_advanced_plugins.fap
+build/f7-firmware-D/.extapps/example_event_loop_timer.fap
+build/f7-firmware-D/.extapps/event_loop_blink_test.fap
+build/f7-firmware-D/.extapps/file_browser_test.fap
+build/f7-firmware-D/.extapps/example_event_loop_event_flags.fap
+build/f7-firmware-D/.extapps/u2f.fap
+build/f7-firmware-D/.extapps/subghz.fap
+build/f7-firmware-D/.extapps/example_images.fap
+build/f7-firmware-D/.extapps/keypad_test.fap
+build/f7-firmware-D/.extapps/example_event_loop_mutex.fap
+build/f7-firmware-D/.extapps/battery_test.fap
+build/f7-firmware-D/.extapps/usb_test.fap
+build/f7-firmware-D/.extapps/ccid_test.fap
+build/f7-firmware-D/.extapps/crash_test.fap
+build/f7-firmware-D/.extapps/example_event_loop_multi.fap
+build/f7-firmware-D/.extapps/example_apps_data.fap
+build/f7-firmware-D/.extapps/example_view_holder.fap
+build/f7-firmware-D/.extapps/example_number_input.fap
