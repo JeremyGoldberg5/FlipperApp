@@ -53,6 +53,29 @@ jobs:
       run: |
         cd /tmp/flipperzero-firmware
 
+        # DIAGNOSTIC: Verify cpp_ide was actually copied
+        echo "=== DIAGNOSTIC: Check if cpp_ide exists ==="
+        if [ -d "applications/examples/cpp_ide" ]; then
+          echo "✓ cpp_ide directory exists"
+          ls -la applications/examples/cpp_ide/ | head -20
+        else
+          echo "✗ FATAL: cpp_ide directory does NOT exist"
+          echo "Available examples:"
+          ls -d applications/examples/*/ | head -20
+          exit 1
+        fi
+
+        if [ -f "applications/examples/cpp_ide/application.fam" ]; then
+          echo "✓ application.fam exists"
+          echo "Content:"
+          cat applications/examples/cpp_ide/application.fam
+        else
+          echo "✗ FATAL: application.fam NOT found"
+          exit 1
+        fi
+
+        echo ""
+        echo "=== Running fbt faps ==="
         # Run fbt faps to build all FAPs, including cpp_ide
         # fbt will automatically discover cpp_ide in applications/examples/
         ./fbt faps 2>&1 | tee build.log
