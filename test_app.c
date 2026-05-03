@@ -1,7 +1,6 @@
 #include <furi.h>
 #include <gui/gui.h>
 #include <gui/elements.h>
-#include <input/input.h>
 
 typedef struct {
     FuriMessageQueue* queue;
