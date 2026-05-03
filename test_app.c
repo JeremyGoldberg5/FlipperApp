@@ -31,7 +31,6 @@ static void editor_init(SimpleEditor* ed) {
     ed->cursor_line = 0;
     ed->cursor_col = 0;
     memset(ed->lines, 0, sizeof(ed->lines));
-    strcpy(ed->lines[0], "// Hello Flipper!");
 }
 
 static void editor_insert_char(SimpleEditor* ed, char c) {
