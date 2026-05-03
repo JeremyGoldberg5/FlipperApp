@@ -26,14 +26,12 @@ typedef struct {
     bool running;
 } AppContext;
 
-static SimpleEditor* editor_create(void) {
-    SimpleEditor* ed = malloc(sizeof(SimpleEditor));
+static void editor_init(SimpleEditor* ed) {
     ed->line_count = 1;
     ed->cursor_line = 0;
     ed->cursor_col = 0;
     memset(ed->lines, 0, sizeof(ed->lines));
     strcpy(ed->lines[0], "// Hello Flipper!");
-    return ed;
 }
 
 static void editor_insert_char(SimpleEditor* ed, char c) {
@@ -188,7 +186,7 @@ int32_t test_app_main(void* p) {
     UNUSED(p);
 
     AppContext* context = malloc(sizeof(AppContext));
-    context->editor = *(editor_create());
+    editor_init(&context->editor);
     context->state = AppStateEditor;
     context->running = true;
 
