@@ -1,8 +1,10 @@
 #include <furi.h>
 #include <gui/gui.h>
 #include <gui/elements.h>
+#include <furi_hal_power.h>
 
 static void draw_callback(Canvas* canvas, void* ctx) {
+    UNUSED(ctx);
     canvas_clear(canvas);
     canvas_set_font(canvas, FontPrimary);
     canvas_draw_str(canvas, 10, 20, "C++ IDE");
@@ -11,6 +13,7 @@ static void draw_callback(Canvas* canvas, void* ctx) {
 }
 
 static void input_callback(InputEvent* event, void* ctx) {
+    UNUSED(ctx);
     if (event->key == InputKeyBack && event->type == InputTypePress) {
         furi_hal_power_off();
     }
