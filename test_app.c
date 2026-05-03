@@ -4,56 +4,123 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "editor/editor.h"
-#include "editor/snippets.h"
+
+#define MAX_LINES 16
+#define MAX_LINE_LENGTH 64
+
+typedef struct {
+    char lines[MAX_LINES][MAX_LINE_LENGTH];
+    uint16_t line_count;
+    uint16_t cursor_line;
+    uint16_t cursor_col;
+} SimpleEditor;
 
 typedef enum {
     AppStateEditor,
     AppStateMenu,
-    AppStateSnippets,
 } AppState;
 
 typedef struct {
-    TextEditor* editor;
+    SimpleEditor editor;
     AppState state;
-    size_t selected_snippet;
+    bool running;
 } AppContext;
+
+static SimpleEditor* editor_create(void) {
+    SimpleEditor* ed = malloc(sizeof(SimpleEditor));
+    ed->line_count = 1;
+    ed->cursor_line = 0;
+    ed->cursor_col = 0;
+    memset(ed->lines, 0, sizeof(ed->lines));
+    strcpy(ed->lines[0], "// Hello Flipper!");
+    return ed;
+}
+
+static void editor_insert_char(SimpleEditor* ed, char c) {
+    if (ed->line_count == 0) return;
+    char* line = ed->lines[ed->cursor_line];
+    size_t len = strlen(line);
+    if (len >= MAX_LINE_LENGTH - 1) return;
+
+    for (size_t i = len; i > ed->cursor_col; i--) {
+        line[i] = line[i-1];
+    }
+    line[ed->cursor_col] = c;
+    line[len+1] = '\0';
+    ed->cursor_col++;
+}
+
+static void editor_backspace(SimpleEditor* ed) {
+    if (ed->cursor_col == 0) return;
+    char* line = ed->lines[ed->cursor_line];
+    size_t len = strlen(line);
+
+    for (size_t i = ed->cursor_col - 1; i < len; i++) {
+        line[i] = line[i+1];
+    }
+    ed->cursor_col--;
+}
+
+static void editor_move_left(SimpleEditor* ed) {
+    if (ed->cursor_col > 0) ed->cursor_col--;
+}
+
+static void editor_move_right(SimpleEditor* ed) {
+    char* line = ed->lines[ed->cursor_line];
+    if (ed->cursor_col < (uint16_t)strlen(line)) ed->cursor_col++;
+}
+
+static void editor_move_up(SimpleEditor* ed) {
+    if (ed->cursor_line > 0) ed->cursor_line--;
+    char* line = ed->lines[ed->cursor_line];
+    if (ed->cursor_col > (uint16_t)strlen(line)) {
+        ed->cursor_col = strlen(line);
+    }
+}
+
+static void editor_move_down(SimpleEditor* ed) {
+    if (ed->cursor_line < ed->line_count - 1) ed->cursor_line++;
+    char* line = ed->lines[ed->cursor_line];
+    if (ed->cursor_col > (uint16_t)strlen(line)) {
+        ed->cursor_col = strlen(line);
+    }
+}
+
+static void editor_insert_line(SimpleEditor* ed) {
+    if (ed->line_count >= MAX_LINES - 1) return;
+    ed->line_count++;
+    ed->cursor_line++;
+    ed->cursor_col = 0;
+    memset(ed->lines[ed->cursor_line], 0, MAX_LINE_LENGTH);
+}
 
 static void editor_draw_callback(Canvas* canvas, void* ctx) {
     AppContext* context = (AppContext*)ctx;
+    SimpleEditor* editor = &context->editor;
 
     canvas_clear(canvas);
     canvas_set_font(canvas, FontDefault);
-    canvas_draw_str(canvas, 0, 8, "C++ IDE - Editor");
+    canvas_draw_str(canvas, 0, 8, "C++ IDE");
     canvas_draw_line(canvas, 0, 10, 128, 10);
 
-    TextEditor* editor = context->editor;
-    uint16_t start_line = editor->scroll_line;
     uint16_t max_lines = 5;
-
-    for (uint16_t i = 0; i < max_lines && start_line + i < editor->line_count; i++) {
+    for (uint16_t i = 0; i < max_lines && i < editor->line_count; i++) {
         char line_num[4];
-        snprintf(line_num, sizeof(line_num), "%2u", start_line + i + 1);
+        snprintf(line_num, sizeof(line_num), "%u:", i + 1);
         canvas_draw_str(canvas, 0, 18 + i * 10, line_num);
 
-        char displayed_text[50];
-        const char* line = editor->lines[start_line + i];
-        size_t disp_len = strlen(line) > 40 ? 40 : strlen(line);
-        if (disp_len > 0) {
-            strncpy(displayed_text, line, disp_len);
-        }
-        displayed_text[disp_len] = '\0';
+        char* line = editor->lines[i];
+        canvas_draw_str(canvas, 12, 18 + i * 10, line);
 
-        canvas_draw_str(canvas, 16, 18 + i * 10, displayed_text);
-
-        if (editor->cursor_line == start_line + i && editor->cursor_col <= (uint16_t)strlen(line)) {
+        if (editor->cursor_line == i) {
+            uint16_t cursor_x = 12 + editor->cursor_col * 5;
             canvas_set_color(canvas, ColorBlack);
-            canvas_draw_box(canvas, 16 + editor->cursor_col * 5, 18 + i * 10 - 8, 1, 10);
+            canvas_draw_box(canvas, cursor_x, 18 + i * 10 - 8, 1, 10);
         }
     }
 
     canvas_draw_line(canvas, 0, 62, 128, 62);
-    canvas_draw_str_aligned(canvas, 64, 64, AlignCenter, AlignBottom, "[OK] Menu");
+    canvas_draw_str_aligned(canvas, 64, 64, AlignCenter, AlignBottom, "[OK] Menu [BACK] Del");
 }
 
 static void menu_draw_callback(Canvas* canvas, void* ctx) {
@@ -62,35 +129,12 @@ static void menu_draw_callback(Canvas* canvas, void* ctx) {
     canvas_draw_str(canvas, 0, 8, "Menu");
     canvas_draw_line(canvas, 0, 10, 128, 10);
 
-    canvas_draw_str(canvas, 5, 25, "> New Code");
-    canvas_draw_str(canvas, 5, 35, "  Snippets");
-    canvas_draw_str(canvas, 5, 45, "  Clear");
-    canvas_draw_str(canvas, 5, 55, "  Exit");
+    canvas_draw_str(canvas, 5, 25, "> New Line");
+    canvas_draw_str(canvas, 5, 35, "  Clear");
+    canvas_draw_str(canvas, 5, 45, "  Exit");
 
     canvas_draw_line(canvas, 0, 62, 128, 62);
     canvas_draw_str_aligned(canvas, 64, 64, AlignCenter, AlignBottom, "[OK/BACK] Select");
-}
-
-static void snippets_draw_callback(Canvas* canvas, void* ctx) {
-    AppContext* context = (AppContext*)ctx;
-
-    canvas_clear(canvas);
-    canvas_set_font(canvas, FontDefault);
-    canvas_draw_str(canvas, 0, 8, "Code Snippets");
-    canvas_draw_line(canvas, 0, 10, 128, 10);
-
-    uint16_t start = context->selected_snippet > 2 ? context->selected_snippet - 2 : 0;
-    uint16_t max_shown = 5;
-
-    for (size_t i = 0; i < max_shown && start + i < snippets_count; i++) {
-        if (start + i == context->selected_snippet) {
-            canvas_draw_str(canvas, 2, 20 + i * 8, ">");
-        }
-        canvas_draw_str(canvas, 12, 20 + i * 8, snippets[start + i].name);
-    }
-
-    canvas_draw_line(canvas, 0, 62, 128, 62);
-    canvas_draw_str_aligned(canvas, 64, 64, AlignCenter, AlignBottom, "[UP/DOWN/OK/BACK]");
 }
 
 static void input_callback(InputEvent* event, void* ctx) {
@@ -101,51 +145,36 @@ static void input_callback(InputEvent* event, void* ctx) {
     if (context->state == AppStateEditor) {
         switch (event->key) {
             case InputKeyUp:
-                editor_move_up(context->editor);
+                editor_move_up(&context->editor);
                 break;
             case InputKeyDown:
-                editor_move_down(context->editor);
+                editor_move_down(&context->editor);
                 break;
             case InputKeyLeft:
-                editor_move_left(context->editor);
+                editor_move_left(&context->editor);
                 break;
             case InputKeyRight:
-                editor_move_right(context->editor);
+                editor_move_right(&context->editor);
                 break;
             case InputKeyOk:
                 context->state = AppStateMenu;
                 break;
             case InputKeyBack:
-                editor_backspace(context->editor);
+                editor_backspace(&context->editor);
                 break;
             default:
                 break;
         }
     } else if (context->state == AppStateMenu) {
         switch (event->key) {
-            case InputKeyOk:
-                context->state = AppStateSnippets;
-                break;
-            case InputKeyBack:
-                context->state = AppStateEditor;
-                break;
-            default:
-                break;
-        }
-    } else if (context->state == AppStateSnippets) {
-        switch (event->key) {
             case InputKeyUp:
-                if (context->selected_snippet > 0) context->selected_snippet--;
                 break;
             case InputKeyDown:
-                if (context->selected_snippet < snippets_count - 1) context->selected_snippet++;
                 break;
-            case InputKeyOk: {
-                const char* code = snippets[context->selected_snippet].code;
-                editor_insert_line(context->editor, code);
+            case InputKeyOk:
+                editor_insert_line(&context->editor);
                 context->state = AppStateEditor;
                 break;
-            }
             case InputKeyBack:
                 context->state = AppStateEditor;
                 break;
@@ -159,9 +188,9 @@ int32_t test_app_main(void* p) {
     UNUSED(p);
 
     AppContext* context = malloc(sizeof(AppContext));
-    context->editor = editor_alloc();
+    context->editor = *(editor_create());
     context->state = AppStateEditor;
-    context->selected_snippet = 0;
+    context->running = true;
 
     Gui* gui = furi_record_open(RECORD_GUI);
     ViewPort* view_port = view_port_alloc();
@@ -171,27 +200,20 @@ int32_t test_app_main(void* p) {
 
     gui_add_view_port(gui, view_port, GuiLayerFullscreen);
 
-    bool running = true;
-    while(running) {
-        AppState current_state = context->state;
-
-        if (current_state == AppStateMenu) {
+    while(context->running) {
+        if (context->state == AppStateMenu) {
             view_port_draw_callback_set(view_port, menu_draw_callback, context);
-        } else if (current_state == AppStateSnippets) {
-            view_port_draw_callback_set(view_port, snippets_draw_callback, context);
         } else {
             view_port_draw_callback_set(view_port, editor_draw_callback, context);
         }
 
         view_port_update(view_port);
-
         furi_delay_ms(10);
     }
 
     gui_remove_view_port(gui, view_port);
     view_port_free(view_port);
     furi_record_close(RECORD_GUI);
-    editor_free(context->editor);
     free(context);
 
     return 0;
