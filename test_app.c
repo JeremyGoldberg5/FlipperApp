@@ -50,7 +50,6 @@ static void editor_init(TextEditor* ed) {
     ed->cursor_col = 0;
     ed->scroll_line = 0;
     memset(ed->lines, 0, sizeof(ed->lines));
-    strncpy(ed->lines[0], "// C++ IDE", MAX_LINE_LEN - 1);
 }
 
 static void editor_insert_line(TextEditor* ed) {
@@ -66,7 +65,10 @@ static void editor_insert_snippet(TextEditor* ed, const char* code) {
     ed->line_count++;
     ed->cursor_line++;
     ed->cursor_col = 0;
-    strncpy(ed->lines[ed->cursor_line], code, MAX_LINE_LEN - 1);
+    size_t len = strlen(code);
+    if (len >= MAX_LINE_LEN) len = MAX_LINE_LEN - 1;
+    memcpy(ed->lines[ed->cursor_line], code, len);
+    ed->lines[ed->cursor_line][len] = '\0';
 }
 
 static void editor_move_up(TextEditor* ed) {
